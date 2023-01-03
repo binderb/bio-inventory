@@ -1,0 +1,1 @@
+Place a 'logo.png' image here to add branding to the page.

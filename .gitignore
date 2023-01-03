@@ -1,6 +1,10 @@
 # MacOS
 .DS_Store/
 
+# App
+public/images/*
+!placeholder.md
+
 # Logs
 logs
 *.log

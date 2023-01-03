@@ -1,0 +1,65 @@
+:root {
+
+  --dark-glass: #44444455;
+  --light-glass: #FFFFFF88;
+
+  --dark: #444;
+  
+  --success: #60b369;
+  --danger: #f3645a;
+  --primary: #0b4f8c;
+  --primary-highlight: #206bad;
+  --dark: #444;
+  --secondary: #CCC;
+  --secondary-highlight: #AAA;
+  --secondary-border: #AAA;
+  
+}
+
+
+/* ----------------------------------
+GENERAL STYLES
+---------------------------------- */
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.text-dark {
+  color: var(--dark) !important;
+}
+
+.bg-dark {
+  background-color: var(--dark) !important;
+}
+
+.bg-light-glass {
+  background-color: var(--light-glass);
+}
+
+.bg-dark-glass {
+  background-color: var(--dark-glass);
+}
+
+.btn-secondary, .bg-secondary {
+  background-color: var(--secondary) !important;
+}
+
+.btn-secondary {
+  border-color: var(--secondary) !important;
+}
+
+.btn-secondary:hover {
+  border-color: var(--secondary-highlight) !important;
+  background-color: var(--secondary-highlight) !important;
+}
+
+.btn-primary, .bg-primary {
+  border-color: var(--primary) !important;
+  background-color: var(--primary) !important;
+}
+
+.btn-primary:hover {
+  border-color: var(--primary-highlight) !important;
+  background-color: var(--primary-highlight) !important;
+}
