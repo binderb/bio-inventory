@@ -4,7 +4,9 @@ const { withAuthView } = require('../utils/auth');
 // Dashboard view
 router.get('/', withAuthView, (req, res) => {
   res.render('dashboard', {
-    title: 'Dashboard | ' + process.env.WEB_TITLE
+    title: 'Dashboard | ' + process.env.WEB_TITLE,
+    displayTitle: process.env.WEB_TITLE,
+    username: req.session.username
   });
 });
 

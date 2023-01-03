@@ -4,7 +4,7 @@
 # App
 public/images/*
 !placeholder.md
-userSeeds.json
+seeds/userSeeds.json
 
 # Logs
 logs

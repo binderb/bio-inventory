@@ -13,7 +13,7 @@
   --secondary: #CCC;
   --secondary-highlight: #AAA;
   --secondary-border: #AAA;
-  
+
 }
 
 
@@ -27,6 +27,10 @@ body {
 
 .text-dark {
   color: var(--dark) !important;
+}
+
+.text-primary {
+  color: var(--primary) !important;
 }
 
 .bg-dark {

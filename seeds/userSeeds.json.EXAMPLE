@@ -4,6 +4,7 @@
     "first" : "",
     "last" : "",
     "initials" : "",
-    "password" : ""
+    "password" : "",
+    "access" : ""
   }
 ]
