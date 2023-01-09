@@ -34,7 +34,6 @@ Item.init(
     },
     spec_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       references: {
         key: 'id',
         model: 'spec'
@@ -42,7 +41,6 @@ Item.init(
     },
     location_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       references: {
         key: 'id',
         model: 'location'
@@ -50,7 +48,6 @@ Item.init(
     },
     sublocation_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       references: {
         key: 'id',
         model: 'location'

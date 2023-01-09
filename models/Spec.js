@@ -60,18 +60,16 @@ Spec.init(
     },
     category_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       references: {
-        key: 'id',
-        model: 'category'
+        model: "category",
+        key: "id"
       }
     },
     vendor_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       references: {
-        key: 'id',
-        model: 'vendor'
+        model: "vendor",
+        key: "id"
       }
     }
   },

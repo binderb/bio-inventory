@@ -22,7 +22,7 @@ Vendor.init(
     underscored: true,
     timestamps: false,
     freezeTableName: true,
-    modelName: 'category'
+    modelName: 'vendor'
   }
 );
 
