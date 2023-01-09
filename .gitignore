@@ -5,6 +5,7 @@
 public/images/*
 !placeholder.md
 seeds/userSeeds.json
+backup_seeds.sql
 
 # Logs
 logs

@@ -14,7 +14,6 @@ Item.init(
     lot: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
     },
     status: {
       type: DataTypes.ENUM('unopened','opened','empty'),
@@ -30,7 +29,7 @@ Item.init(
       type: DataTypes.FLOAT,
     },
     activity_log: {
-      type: DataTypes.STRING
+      type: DataTypes.TEXT
     },
     spec_id: {
       type: DataTypes.INTEGER,

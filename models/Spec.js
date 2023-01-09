@@ -56,7 +56,7 @@ Spec.init(
       type: DataTypes.FLOAT
     },
     activity_log: {
-      type: DataTypes.STRING
+      type: DataTypes.TEXT
     },
     category_id: {
       type: DataTypes.INTEGER,
