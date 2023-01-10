@@ -1,7 +1,20 @@
 {{>navbar}}
 <section class="container-fluid mt-2">
   <div class="row">
-    <div class="col-12 col-md-8 col-lg-6">
+    <div class="col-12 col-md-4 col-xl-3 p-2 py-1">
+      <div class="container-fluid bg-light border border-color-dark rounded">
+        <h5 class="fw-bold p-2 pt-4 pb-0 text-primary">Manage Inventory</h5>
+        <div class="d-flex flex-column p-2 pb-4">
+          <button class="btn btn-primary m-1 text-center text-md-start"><i class="fa-solid fa-qrcode pe-2"></i> Scan Inventory Items</button>
+          <button class="btn btn-primary m-1 text-center text-md-start"><i class="fa-solid fa-cube pe-2"></i> Add Inventory Spec</button>
+          <button class="btn btn-primary m-1 text-center text-md-start"><i class="fa-solid fa-file-import pe-2"></i> Add Inventory Item</button>
+          <button class="btn btn-primary m-1 text-center text-md-start"><i class="fa-solid fa-map-location-dot pe-2"></i> Add Locations</button>
+          <button class="btn btn-primary m-1 text-center text-md-start"><i class="fa-solid fa-industry pe-2"></i> Add Vendors</button>
+        </div>
+      </div>
+    </div>
+    {{!-- quick search box --}}
+    <div class="col-12 col-md-8 col-xl-9 p-2 py-1">
       <div class="container-fluid bg-light border border-color-dark rounded">
         <h5 class="fw-bold p-2 pt-4 pb-0 text-primary">Quick Search</h5>
         <div class="d-flex align-items-center p-2 pb-4">
