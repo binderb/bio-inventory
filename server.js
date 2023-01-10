@@ -6,7 +6,7 @@ const exhbs = require('express-handlebars');
 const helpers = require('./utils/helpers');
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const routes = require('./controllers');
+const routes = require('./routes');
 
 // Define server and port
 const PORT = 3001;
@@ -47,7 +47,7 @@ app.use(routes);
 
 // Require sequelize model sync before listening
 async function init () {
-  await sequelize.sync({alter: true});
+  await sequelize.sync({force: false});
   app.listen(PORT, () => console.log(`BioInventory now listening on port ${PORT}. ✨🧪✨`));
 }
 

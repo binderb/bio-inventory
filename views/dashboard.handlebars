@@ -4,15 +4,21 @@ Dashboard!
 </section> --}}
 <section class="container-fluid mt-2">
   <div class="row">
-    <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+    <div class="col-12 col-md-8 col-lg-6">
       <div class="container-fluid bg-light border border-color-dark rounded">
-      <h5 class="fw-bold p-2 pt-4 pb-0 text-primary">Quick Search</h5>
+        <h5 class="fw-bold p-2 pt-4 pb-0 text-primary">Quick Search</h5>
         <div class="d-flex align-items-center p-2 pb-4">
           <i class="fas fa-search text-primary" style="margin-right: 10px;"></i>
-          <input id="inventory_view_search" class="form-control" type="text" style="flex:1;">
+          <input id="quick-search" class="form-control" type="text" placeholder="search for a spec" style="flex:1;">
+        </div>
+        <div class="rounded border border-color-dark bg-white mb-3">
+          <div id="quick-search-results" class="list-group border-0" style="height:210px; overflow-y:scroll;">
+          </div>
+          <a id="quick-search-li-template" href="" class="list-group-item list-group-item-action quick-search-li" style="display:none;"></a>
         </div>
       </div>
     </div>
   </div>
 </section>
+<script src="/js/manageQuickSearch.js"></script>
 <script src="/js/logout.js"></script>

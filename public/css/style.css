@@ -67,3 +67,16 @@ body {
   border-color: var(--primary-highlight) !important;
   background-color: var(--primary-highlight) !important;
 }
+
+.quick-search-li {
+  border-left-width: 0px;
+  border-right-width: 0px;
+}
+
+.quick-search-li:first-child {
+  border-top-width: 0px;
+}
+
+.quick-search-li:last-child {
+  border-bottom-width: 0px;
+}
