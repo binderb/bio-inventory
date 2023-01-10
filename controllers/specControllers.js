@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const { Spec, Item } = require('../models');
+const { Spec, Vendor } = require('../models');
 
 module.exports = {
   getAllSpecs: async (req, res) => {
@@ -11,6 +11,12 @@ module.exports = {
             [Sequelize.literal('(SELECT COUNT(*) FROM item WHERE item.spec_id = spec.id AND item.status = "unopened")'), "total_unopened"],
             [Sequelize.literal('(SELECT COUNT(*) FROM item WHERE item.spec_id = spec.id AND item.status = "opened")'), "total_opened"],
             [Sequelize.literal('(SELECT COUNT(*) FROM item WHERE item.spec_id = spec.id AND item.status = "empty")'), "total_empty"]
+          ]
+        },
+        include: {
+          model: Vendor,
+          attributes: [
+            'name'
           ]
         }
       });

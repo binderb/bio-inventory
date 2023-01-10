@@ -1,7 +1,4 @@
 {{>navbar}}
-{{!-- <section class="p-4">
-Dashboard!
-</section> --}}
 <section class="container-fluid mt-2">
   <div class="row">
     <div class="col-12 col-md-8 col-lg-6">
@@ -14,7 +11,15 @@ Dashboard!
         <div class="rounded border border-color-dark bg-white mb-3">
           <div id="quick-search-results" class="list-group border-0" style="height:210px; overflow-y:scroll;">
           </div>
-          <a id="quick-search-li-template" href="" class="list-group-item list-group-item-action quick-search-li" style="display:none;"></a>
+          <a id="quick-search-li-template" href="" class="list-group-item list-group-item-action quick-search-li" style="display:none;">
+            <p id="name" class="m-0"></p>
+            <p id="sub" class="m-0 mb-2"></p>
+            <div class="pb-2">
+            <span id="total" class="badge rounded-pill bg-primary"></span>
+            <span id="unopened" class="badge rounded-pill bg-primary"></span>
+            <span id="opened" class="badge rounded-pill bg-dark"></span>
+            </div>
+          </a>
         </div>
       </div>
     </div>
