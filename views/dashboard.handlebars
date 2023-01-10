@@ -1,6 +1,7 @@
 {{>navbar}}
 <section class="container-fluid mt-2">
   <div class="row">
+    {{!-- manage inventory --}}
     <div class="col-12 col-md-4 col-xl-3 p-2 py-1">
       <div class="container-fluid bg-light border border-color-dark rounded">
         <h5 class="fw-bold p-2 pt-4 pb-0 text-primary">Manage Inventory</h5>
@@ -10,6 +11,14 @@
           <button class="btn btn-primary m-1 text-center text-md-start"><i class="fa-solid fa-file-import pe-2"></i> Add Inventory Item</button>
           <button class="btn btn-primary m-1 text-center text-md-start"><i class="fa-solid fa-map-location-dot pe-2"></i> Add Locations</button>
           <button class="btn btn-primary m-1 text-center text-md-start"><i class="fa-solid fa-industry pe-2"></i> Add Vendors</button>
+        </div>
+      </div>
+      {{!-- admin tasks --}}
+      <div class="container-fluid bg-light border border-color-dark rounded mt-2">
+        <h5 class="fw-bold p-2 pt-4 pb-0 text-primary">Admin Tasks</h5>
+        <div class="d-flex flex-column p-2 pb-4">
+          <button class="btn btn-primary m-1 text-center text-md-start"><i class="fa-solid fa-clipboard-check pe-2"></i> Manage Task Lists</button>
+          
         </div>
       </div>
     </div>
