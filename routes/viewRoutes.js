@@ -15,6 +15,6 @@ router.route('/login').get(displayLogin);
 // Authenticated Routes
 // ---------------------
 // Dashboard view
-router.route('/').get(withAuthView, displayDashboard);
+router.route('/').get(displayDashboard);
 
 module.exports = router;

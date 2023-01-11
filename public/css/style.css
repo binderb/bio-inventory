@@ -13,6 +13,8 @@
   --secondary: #CCC;
   --secondary-highlight: #AAA;
   --secondary-border: #AAA;
+  --light: #f8f9fa;
+  --light-highlight: #e7e8e9;
 
 }
 
@@ -79,4 +81,78 @@ body {
 
 .quick-search-li:last-child {
   border-bottom-width: 0px;
+}
+
+.btn-outline-primary {
+  background-color: var(--light);
+  border-color: var(--dark);
+  --bs-btn-color: var(--dark) !important;
+  --bs-btn-active-bg: var(--primary) !important;
+  --bs-btn-active-border-color: var(--dark) !important;
+  --bs-btn-hover-bg: var(--light) !important;
+  --bs-btn-hover-border-color: var(--dark) !important;
+}
+
+.btn-check+.btn:hover {
+  background-color: var(--light-highlight) !important;
+  border-color: var(--dark) !important;
+}
+
+.btn-check:checked+.btn:hover {
+  background-color: var(--primary) !important;
+}
+
+.inventory-subnav-group {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0.375rem;
+  padding-right: 0.375rem;
+  padding-bottom: 1.0rem;
+}
+
+.inventory-subnav-group .btn {
+  margin: 0px;
+  flex: 1;
+  border-radius: 0px;
+  margin-top: -1px;
+  margin-bottom: -1px;
+  text-align: left !important;
+}
+
+.inventory-subnav-group .btn:nth-child(2) {
+  border-radius: 0.375rem 0.375rem 0 0;
+}
+
+.inventory-subnav-group .btn:last-child {
+  border-radius: 0 0 0.375rem 0.375rem;
+}
+
+@media screen and (max-width: 768px) {
+ 
+  .inventory-subnav-group {
+    display: flex;
+    flex-direction: row;
+    padding-left: 0.375rem;
+    padding-right: 0.375rem;
+    padding-bottom: 1.0rem;
+  }
+  
+  .inventory-subnav-group .btn {
+    margin: 0px;
+    flex: 1;
+    border-radius: 0px;
+    margin-left: -1px;
+    margin-right: -1px;
+    text-align: center !important;
+  }
+  
+  .inventory-subnav-group .btn:nth-child(2) {
+    border-radius: 0.375rem 0 0 0.375rem;
+  }
+  
+  .inventory-subnav-group .btn:last-child {
+    border-radius: 0 0.375rem 0.375rem 0;
+  }
+  
+
 }

@@ -5,12 +5,19 @@
     <div class="col-12 col-md-4 col-xl-3 p-2 py-1">
       <div class="container-fluid bg-light border border-color-dark rounded">
         <h5 class="fw-bold p-2 pt-4 pb-0 text-primary">Manage Inventory</h5>
-        <div class="d-flex flex-column p-2 pb-4">
-          <button class="btn btn-primary m-1 text-center text-md-start"><i class="fa-solid fa-qrcode pe-2"></i> Scan Inventory Items</button>
-          <button class="btn btn-primary m-1 text-center text-md-start"><i class="fa-solid fa-cube pe-2"></i> Add Inventory Spec</button>
-          <button class="btn btn-primary m-1 text-center text-md-start"><i class="fa-solid fa-file-import pe-2"></i> Add Inventory Item</button>
-          <button class="btn btn-primary m-1 text-center text-md-start"><i class="fa-solid fa-map-location-dot pe-2"></i> Add Locations</button>
-          <button class="btn btn-primary m-1 text-center text-md-start"><i class="fa-solid fa-industry pe-2"></i> Add Vendors</button>
+        <div class="inventory-subnav-group" role="group">
+          <input type="radio" class="btn-check" name="btnradio" id="search" autocomplete="off" checked>
+          <label class="btn btn-outline-primary text-start" for="search"><i class="fa-solid fa-search pe-2"></i><span class="d-none d-md-inline">Quick Search</span></label>
+          <input type="radio" class="btn-check" name="btnradio" id="scan" autocomplete="off" >
+          <label class="btn btn-outline-primary text-start" for="scan"><i class="fa-solid fa-qrcode pe-2"></i><span class="d-none d-md-inline">Scan Inventory Items</span></label>
+          <input type="radio" class="btn-check" name="btnradio" id="add-spec" autocomplete="off" >
+          <label class="btn btn-outline-primary text-start" for="add-spec"><i class="fa-solid fa-cube pe-2"></i><span class="d-none d-md-inline">Add Inventory Spec</span></label>
+          <input type="radio" class="btn-check" name="btnradio" id="add-item" autocomplete="off" >
+          <label class="btn btn-outline-primary text-start" for="add-item"><i class="fa-solid fa-file-import pe-2"></i><span class="d-none d-md-inline">Add Inventory Item</span></label>
+          <input type="radio" class="btn-check" name="btnradio" id="add-location" autocomplete="off" >
+          <label class="btn btn-outline-primary text-start" for="add-location"><i class="fa-solid fa-map-location-dot pe-2"></i><span class="d-none d-md-inline">Add Locations</span></label>
+          <input type="radio" class="btn-check" name="btnradio" id="add-vendor" autocomplete="off" >
+          <label class="btn btn-outline-primary text-start" for="add-vendor"><i class="fa-solid fa-industry pe-2"></i><span class="d-none d-md-inline">Add Vendors</span></label>
         </div>
       </div>
       {{!-- admin tasks --}}
