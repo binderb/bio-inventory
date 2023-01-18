@@ -4,18 +4,20 @@ import { withAuthAPI } from '../../utils/auth.js';
 import {
   loginUser,
   logoutUser
-} from '../../controllers/userControllers.js';
+} from '../../controllers/userController.js';
 
 // ---------------------
 // Public Routes
 // ---------------------
+router.route('/login')
 // Log in user
-router.route('/login').post(loginUser);
+.post(loginUser);
 
 // ---------------------
 // Authenticated Routes
 // ---------------------
+router.route('/logout')
 // Log out user
-router.route('/logout').post(withAuthAPI, logoutUser);
+.post(withAuthAPI, logoutUser);
 
 export default router;

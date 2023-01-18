@@ -3,19 +3,27 @@ const router = express.Router();
 import { withAuthView } from '../utils/auth.js';
 import { 
   displayDashboard,
-  displayLogin
-} from '../controllers/viewControllers.js';
+  displayLogin,
+  displaySpecDetails,
+  displayItemDetails
+} from '../controllers/viewController.js';
 
 // ---------------------
 // Public Routes
 // ---------------------
+router.route('/login')
 // Login view
-router.route('/login').get(displayLogin);
+.get(displayLogin);
 
 // ---------------------
 // Authenticated Routes
 // ---------------------
+router.route('/')
 // Dashboard view
-router.route('/').get(withAuthView, displayDashboard);
+.get(withAuthView, displayDashboard);
+router.route('/specs/:id')
+.get(withAuthView, displaySpecDetails);
+router.route('/specs/:id')
+.get(withAuthView, displayItemDetails);
 
 export default router;

@@ -3,7 +3,11 @@ const router = express.Router();
 import { withAuthAPI } from '../../utils/auth.js';
 import {
   getAllSpecs,
-} from '../../controllers/specControllers.js';
+  getOneSpec,
+  createOneSpec,
+  updateOneSpec,
+  deleteOneSpec
+} from '../../controllers/specController.js';
 
 // ---------------------
 // Public Routes
@@ -13,7 +17,18 @@ import {
 // ---------------------
 // Authenticated Routes
 // ---------------------
+router.route('/')
 // Get all specs
-router.route('/').get(getAllSpecs);
+.get(withAuthAPI,getAllSpecs)
+// Create one spec
+.post(withAuthAPI,createOneSpec);
+
+router.route('/:id')
+// Get one spec
+.get(withAuthAPI,getOneSpec)
+// Update one spec
+.put(withAuthAPI,updateOneSpec)
+// Delete one spec
+.delete(withAuthAPI,deleteOneSpec);
 
 export default router;
