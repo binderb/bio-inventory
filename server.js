@@ -1,12 +1,15 @@
 // Dependencies
-const path = require('path');
-const express = require('express');
-const sequelize = require('./config/connection');
-const exhbs = require('express-handlebars');
-const helpers = require('./utils/helpers');
-const session = require('express-session');
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const routes = require('./routes');
+import path from 'path';
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+import express from 'express';
+import sequelize from './config/connection.js';
+import exhbs from 'express-handlebars';
+import helpers from './utils/helpers.js';
+import session from 'express-session';
+import connectSessionSequelize from 'connect-session-sequelize';
+const SequelizeStore = connectSessionSequelize(session.Store);
+import routes from './routes/index.js';
 
 // Define server and port
 const PORT = 3001;

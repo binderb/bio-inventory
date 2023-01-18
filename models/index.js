@@ -1,9 +1,9 @@
-const User = require('./User');
-const Spec = require('./Spec');
-const Item = require('./Item');
-const Category = require('./Category');
-const Location = require('./Location');
-const Vendor = require('./Vendor');
+import User from './User.js';
+import Spec from './Spec.js';
+import Item from './Item.js';
+import Category from './Category.js';
+import Location from './Location.js';
+import Vendor from './Vendor.js';
 
 Category.hasMany(Spec, {
   foreignKey: 'category_id',
@@ -62,7 +62,7 @@ Location.hasOne(Location, {
 });
 
 
-module.exports = {
+export {
   User,
   Spec,
   Item,

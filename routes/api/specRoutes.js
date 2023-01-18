@@ -1,9 +1,9 @@
-const router = require('express').Router();
-
-const { withAuthAPI } = require('../../utils/auth');
-const {
+import express from 'express';
+const router = express.Router();
+import { withAuthAPI } from '../../utils/auth.js';
+import {
   getAllSpecs,
-} = require('../../controllers/specControllers');
+} from '../../controllers/specControllers.js';
 
 // ---------------------
 // Public Routes
@@ -16,4 +16,4 @@ const {
 // Get all specs
 router.route('/').get(getAllSpecs);
 
-module.exports = router;
+export default router;

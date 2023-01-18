@@ -1,9 +1,10 @@
-const router = require('express').Router();
-const { withAuthView } = require('../utils/auth');
-const { 
+import express from 'express';
+const router = express.Router();
+import { withAuthView } from '../utils/auth.js';
+import { 
   displayDashboard,
   displayLogin
-} = require('../controllers/viewControllers')
+} from '../controllers/viewControllers.js';
 
 // ---------------------
 // Public Routes
@@ -15,6 +16,6 @@ router.route('/login').get(displayLogin);
 // Authenticated Routes
 // ---------------------
 // Dashboard view
-router.route('/').get(displayDashboard);
+router.route('/').get(withAuthView, displayDashboard);
 
-module.exports = router;
+export default router;

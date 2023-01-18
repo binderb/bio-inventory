@@ -2,6 +2,7 @@
   "name": "bio-inventory",
   "version": "1.0.0",
   "description": "Full-stack web application that employs Node.js/Express, Sequelize, and Handlebars to manage consumable inventory in a biomedical lab setting.",
+  "type": "module",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

@@ -1,5 +1,5 @@
-const sequelize = require('../config/connection');
-const { User, Category, Vendor, Location, Spec, Item } = require('../models');
+import sequelize from '../config/connection.js';
+import { User, Category, Vendor, Location, Spec, Item } from '../models/index.js';
 
 const clearDatabase = async () => {
   await sequelize.sync({force: true});

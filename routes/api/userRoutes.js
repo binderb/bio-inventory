@@ -1,9 +1,10 @@
-const router = require('express').Router();
-const { withAuthAPI } = require('../../utils/auth');
-const {
+import express from 'express';
+const router = express.Router();
+import { withAuthAPI } from '../../utils/auth.js';
+import {
   loginUser,
   logoutUser
-} = require('../../controllers/userControllers');
+} from '../../controllers/userControllers.js';
 
 // ---------------------
 // Public Routes
@@ -17,4 +18,4 @@ router.route('/login').post(loginUser);
 // Log out user
 router.route('/logout').post(withAuthAPI, logoutUser);
 
-module.exports = router;
+export default router;
