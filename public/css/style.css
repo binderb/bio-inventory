@@ -12,7 +12,7 @@
   --dark: #444;
   --secondary: #CCC;
   --secondary-highlight: #AAA;
-  --secondary-border: #AAA;
+  --secondary-border: #dee2e6;
   --light: #f8f9fa;
   --light-highlight: #e7e8e9;
 
@@ -27,7 +27,7 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
-.text-dark, .border-color-dark {
+.text-dark {
   color: var(--dark) !important;
 }
 
@@ -127,6 +127,10 @@ body {
   border-radius: 0 0 0.375rem 0.375rem;
 }
 
+.detail-category {
+  border-right: 1px solid var(--secondary-border);
+}
+
 @media screen and (max-width: 768px) {
  
   .inventory-subnav-group {
@@ -155,4 +159,11 @@ body {
   }
   
 
+}
+
+@media screen and (max-width: 576px) {
+  .detail-category {
+    border-right: 0px;
+    border-bottom: 1px solid var(--secondary-border);
+  }
 }

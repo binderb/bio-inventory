@@ -36,22 +36,26 @@ Item.belongsTo(Spec, {
 });
 
 Location.hasMany(Item, {
+  as: 'location',
   foreignKey: 'location_id',
   onUpdate: 'CASCADE',
   onDelete: 'SET NULL'
 });
 
 Item.belongsTo(Location, {
+  as: 'location',
   foreignKey: 'location_id'
 });
 
 Location.hasMany(Item, {
+  as: 'sublocation',
   foreignKey: 'sublocation_id',
   onUpdate: 'CASCADE',
   onDelete: 'SET NULL'
 });
 
 Item.belongsTo(Location, {
+  as: 'sublocation',
   foreignKey: 'sublocation_id'
 });
 

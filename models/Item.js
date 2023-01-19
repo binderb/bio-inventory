@@ -1,4 +1,5 @@
 import sequelize from '../config/connection.js';
+import Sequelize from 'sequelize';
 import { Model, DataTypes } from 'sequelize';
 
 class Item extends Model {};
@@ -51,7 +52,7 @@ Item.init(
         key: 'id',
         model: 'location'
       }
-    }
+    },
   },
   {
     sequelize,

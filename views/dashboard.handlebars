@@ -1,8 +1,8 @@
 {{>navbar}}
 <section class="container-fluid mt-2">
   <div class="row">
-    {{!-- manage inventory --}}
-    <div class="col-12 col-md-4 col-xl-3 p-2 py-1">
+    <div class="col-12 col-md-4 col-xl-3 p-2 py-1 d-flex flex-column-reverse flex-md-column">
+      {{!-- manage inventory --}}
       <div class="container-fluid bg-light border border-color-dark rounded">
         <h5 class="fw-bold p-2 pt-4 pb-0 text-primary">Manage Inventory</h5>
         <div class="inventory-subnav-group" role="group">
@@ -21,7 +21,7 @@
         </div>
       </div>
       {{!-- admin tasks --}}
-      <div class="container-fluid bg-light border border-color-dark rounded mt-2">
+      <div class="container-fluid bg-light border border-color-dark rounded mb-2 mt-md-2">
         <h5 class="fw-bold p-2 pt-4 pb-0 text-primary">Admin Tasks</h5>
         <div class="d-flex flex-column p-2 pb-4">
           <button class="btn btn-primary m-1 text-center text-md-start"><i class="fa-solid fa-clipboard-check pe-2"></i> Manage Task Lists</button>

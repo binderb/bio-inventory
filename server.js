@@ -5,7 +5,7 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 import express from 'express';
 import sequelize from './config/connection.js';
 import exhbs from 'express-handlebars';
-import helpers from './utils/helpers.js';
+import * as helpers from './utils/helpers.js';
 import session from 'express-session';
 import connectSessionSequelize from 'connect-session-sequelize';
 const SequelizeStore = connectSessionSequelize(session.Store);

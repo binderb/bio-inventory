@@ -1,1 +1,87 @@
-{{ spec.name }}
+{{>navbar}}
+<div class="container-fluid p-0">
+  <a href="{{context}}" class="link-dark m-2 mb-0 d-block">&larr; Back</a>
+  <div class="container-fluid m-0 p-0 my-2 p-4 bg-light border-top border-bottom border-color-secondary">
+    <h2 class="col-12 text-primary fw-bold pb-2">
+      {{spec.name}}
+    </h2>
+    {{!-- <div class="col-12 d-flex small-text">
+      posted by&nbsp;<b>{{ user.username }}</b>&nbsp;on {{ format_datetime created }}
+    </div> --}}
+    <div class="row border border-color-secondary">
+      <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Part No.</div>
+      <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{spec.pn}}</div>
+    </div>
+    <div class="row border border-top-0 border-color-secondary">
+      <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Category:</div>
+      <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{spec.category.name}}</div>
+    </div>
+    <div class="row border border-top-0 border-color-secondary">
+      <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Vendor:</div>
+      <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{spec.vendor.name}}</div>
+    </div>
+    <div class="row border border-top-0 border-color-secondary">
+      <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Item Size:</div>
+      <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{spec.amount}} {{spec.units}}</div>
+    </div>
+    <div class="row border border-top-0 border-color-secondary">
+      <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Alert Threshold<br/>(Item Qty):</div>
+      <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+        {{#if spec.reorder_qty_threshold}}
+          {{spec.reorder_qty_threshold}}
+        {{else}}
+          <i>Not Set</i>
+        {{/if}}
+      </div>
+    </div>
+    <div class="row border border-top-0 border-color-secondary">
+      <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Alert Threshold<br/>(Amt):</div>
+      <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+        {{#if spec.reorder_amt_threshold}}
+          {{spec.reorder_amt_threshold}}
+        {{else}}
+          <i>Not Set</i>
+        {{/if}}
+      </div>
+    </div>
+    <div class="row border border-top-0 border-color-secondary">
+      <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Activity Log:</div>
+      <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{spec.activity_log}}</div>
+    </div>
+    <h2 class="col-12 text-primary fw-bold pb-2 pt-4">
+      Stock: {{count spec.items}}
+    </h2>
+    {{!-- <div class="col-12 d-flex small-text">
+      posted by&nbsp;<b>{{ user.username }}</b>&nbsp;on {{ format_datetime created }}
+    </div> --}}
+    {{#each spec.items as |item|}}
+    <a href="/specs/{{../spec.id}}/items/{{item.id}}" class="row border {{#unless (isFirst @index)}}border-top-0{{/unless}} border-color-secondary bg-white text-decoration-none p-2 d-flex justify-content-start">
+      <div class="d-flex align-items-center ps-0">
+        {{!-- Current amount gauge --}}
+        <div class="d-flex rounded border border-2 border-dark me-2" style="height:100%;">
+          <div class="d-flex overflow-hidden rounded border border-2 border-white align-items-end" style="height:100%;">
+          <div style="display:block;background-color:var(--primary);width:20px;height:{{percentage item.percent_remaining}};"></div>
+          </div>
+        </div>
+        {{!-- Item details --}}
+        <div class="d-flex flex-column justify-content-center text-dark text-decoration-none">
+          <div><b>Stock Index:</b>&nbsp;{{inc @index}}</div>
+          <div><b>Lot #:</b>&nbsp;{{item.lot}}</div>
+          <div><b>Location:</b>&nbsp;{{item.location.name}}{{#if item.sublocation}}, {{item.sublocation.name}}{{/if}}</div>
+          <div class="d-flex align-items-center"><b>Status:</b>&nbsp;
+            {{#if (equals item.status 'unopened')}}
+              <span class="badge rounded-pill bg-primary"><i class="fa-solid fa-box pe-1"></i>Unopened</span>
+            {{else if (equals item.status 'opened')}}
+              <span class="badge rounded-pill bg-dark"><i class="fa-solid fa-box-open pe-1"></i>Opened</span>
+            {{else if (equals item.status 'empty')}}
+              <span class="badge rounded-pill bg-danger"><i class="fa-solid fa-ban pe-1"></i>Empty</span>
+            {{/if}}
+          </div>
+        </div>
+        
+      </div>
+    </a>
+    {{/each}}
+  </div>
+  
+</div>

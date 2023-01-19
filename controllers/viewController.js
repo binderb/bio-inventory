@@ -16,10 +16,21 @@ export const displayLogin = (req, res) => {
 
 export const displaySpecDetails = async (req, res) => {
   const specData = await findSpecByPk(req.params.id);
+  if (!specData) {
+    res.render('404', {
+      title: '404 | ' + process.env.WEB_TITLE,
+      displayTitle: process.env.WEB_TITLE,
+      username: req.session.username
+    });
+    return;
+  }
   const spec = specData.get({plain:true});
   res.render('specDetails', {
     spec,
-    title: 'Spec Details | ' + process.env.WEB_TITLE
+    title: 'Spec Details | ' + process.env.WEB_TITLE,
+    displayTitle: process.env.WEB_TITLE,
+    username: req.session.username,
+    context: '/'
   });
 }
 
