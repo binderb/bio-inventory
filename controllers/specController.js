@@ -55,7 +55,7 @@ export const getAllSpecs = async (req, res) => {
     const allSpecs = allSpecsData;
     res.status(200).json(allSpecs);
   } catch (err) {
-    res.status(500).json({message: `Internal Server Error: ${err.name}: ${err.message}`});
+    res.status(500).json({message: `${err.name}: ${err.message}`});
   }
 }
 
@@ -66,7 +66,7 @@ export const getOneSpec = async (req, res) => {
     if (specData) res.status(200).json(specData);
     else res.status(404).json({message: `No spec found with the given ID!`});
   } catch (err) {
-    res.status(500).json({message: `Internal Server Error: ${err.name}: ${err.message}`});
+    res.status(500).json({message: `${err.name}: ${err.message}`});
   }
 }
 
@@ -76,7 +76,7 @@ export const createOneSpec = async (req, res) => {
     const newSpec = await Spec.create(req.body);
     res.status(201).json(newSpec);
   } catch (err) {
-    res.status(500).json({message: `Internal Server Error: ${err.name}: ${err.message}`});
+    res.status(500).json({message: `${err.name}: ${err.message}`});
   }
 }
 
@@ -91,11 +91,11 @@ export const updateOneSpec = async (req, res) => {
     const updatedSpec = await Spec.update(req.body, {
       where: {
         id: req.params.id
-      }
+      },
     });
     res.status(200).json(updatedSpec);
   } catch (err) {
-    res.status(500).json({message: `Internal Server Error: ${err.name}: ${err.message}`});
+    res.status(500).json({message: `${err.name}: ${err.message}`});
   }
 }
 
@@ -114,6 +114,11 @@ export const deleteOneSpec = async (req, res) => {
     });
     res.status(200).json(deletedSpec);
   } catch (err) {
-    res.status(500).json({message: `Internal Server Error: ${err.name}: ${err.message}`});
+    res.status(500).json({message: `${err.name}: ${err.message}`});
   }
+}
+
+// Get enumerated units defined in the spec model.
+export const getUnits = async (req, res) => {
+  res.status(200).json(Spec.getAttributes().units.values);
 }

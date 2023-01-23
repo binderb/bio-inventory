@@ -46,7 +46,7 @@ Spec.init(
       allowNull: false
     },
     units: {
-      type: DataTypes.TEXT,
+      type: DataTypes.ENUM('g','mg','ug','L','mL','uL','ct'),
       allowNull: false
     },
     reorder_qty_threshold: {

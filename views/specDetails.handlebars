@@ -10,7 +10,7 @@
           <button id="edit" class="btn btn-primary mb-3"><i class="fa-solid fa-pen-to-square me-2"></i>Edit Spec</button>
         </div>
       {{/if}}
-      <h2 class="col-12 text-primary fw-bold pb-2">
+      <h2 id="detail-name" class="col-12 text-primary fw-bold pb-2">
         {{spec.name}}
       </h2>
       <div class="row border border-color-secondary">
@@ -19,39 +19,39 @@
       </div>
       <div class="row border border-top-0 border-color-secondary">
         <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Category:</div>
-        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{spec.category.name}}</div>
+        <div id="detail-category" class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{spec.category.name}}</div>
       </div>
       <div class="row border border-top-0 border-color-secondary">
         <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Vendor:</div>
-        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{spec.vendor.name}}</div>
+        <div id="detail-vendor" class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{spec.vendor.name}}</div>
       </div>
       <div class="row border border-top-0 border-color-secondary">
         <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Item Size:</div>
-        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{spec.amount}} {{spec.units}}</div>
+        <div id="detail-size" class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{spec.amount}} {{spec.units}}</div>
       </div>
       <div class="row border border-top-0 border-color-secondary">
         <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Alert Threshold<br/>(Item Qty):</div>
-        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+        <div id="detail-qty-threshold" class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
           {{#if spec.reorder_qty_threshold}}
             {{spec.reorder_qty_threshold}}
           {{else}}
-            <i>Not Set</i>
+            <i>(not set)</i>
           {{/if}}
         </div>
       </div>
       <div class="row border border-top-0 border-color-secondary">
         <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Alert Threshold<br/>(Amt):</div>
-        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+        <div id="detail-amt-threshold" class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
           {{#if spec.reorder_amt_threshold}}
             {{spec.reorder_amt_threshold}}
           {{else}}
-            <i>Not Set</i>
+            <i>(not set)</i>
           {{/if}}
         </div>
       </div>
       <div class="row border border-top-0 border-color-secondary">
         <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Activity Log:</div>
-        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+        <div id="detail-log" class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
           {{#each spec.speclogs as |log|}}
           <div><b>{{format_datetime log.created}}</b>&nbsp;{{log.body}}</div>
           {{/each}}
@@ -61,13 +61,14 @@
     {{!-- Spec Edit Table --}}
     <div id="spec-edit" style="display:none;">
       {{#if (isAdmin access)}}
-        <div id="edit-admin-bar" class="d-flex justify-content-end">
-          <button id="cancel" class="btn btn-secondary mb-3 me-2"><i class="fa-solid fa-xmark me-2"></i>Cancel</button>
-          <button id="save" class="btn btn-primary mb-3"><i class="fa-solid fa-check me-2"></i>Save Edits</button>
+        <div id="edit-admin-bar" class="d-flex justify-content-end align-items-center mb-3">
+          <div id="err" class="text-danger me-3"></div>
+          <button id="cancel" class="btn btn-secondary me-2"><i class="fa-solid fa-xmark me-2"></i>Cancel</button>
+          <button id="save" class="btn btn-primary"><i class="fa-solid fa-check me-2"></i>Save Edits</button>
         </div>
       {{/if}}
       <h2 class="col-12 text-primary fw-bold pb-2">
-        {{spec.name}}
+        <input id="name" class="form-control" type="text">
       </h2>
       <div class="row border border-color-secondary">
         <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Part No.</div>
@@ -75,34 +76,33 @@
       </div>
       <div class="row border border-top-0 border-color-secondary">
         <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Category:</div>
-        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{spec.category.name}}</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          <select id="category" class="form-control"></select>
+        </div>
       </div>
       <div class="row border border-top-0 border-color-secondary">
         <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Vendor:</div>
-        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{spec.vendor.name}}</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          <select id="vendor" class="form-control"></select>
+        </div>
       </div>
       <div class="row border border-top-0 border-color-secondary">
         <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Item Size:</div>
-        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{spec.amount}} {{spec.units}}</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          <input id="amount" class="form-control me-2" type="text" style="flex:1;">
+          <select id="units" class="form-control ms-2" style="flex:1;"></select>
+        </div>
       </div>
       <div class="row border border-top-0 border-color-secondary">
         <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Alert Threshold<br/>(Item Qty):</div>
         <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
-          {{#if spec.reorder_qty_threshold}}
-            {{spec.reorder_qty_threshold}}
-          {{else}}
-            <i>Not Set</i>
-          {{/if}}
+          <input id="qty-threshold" type="text" class="form-control" />
         </div>
       </div>
       <div class="row border border-top-0 border-color-secondary">
         <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Alert Threshold<br/>(Amt):</div>
         <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
-          {{#if spec.reorder_amt_threshold}}
-            {{spec.reorder_amt_threshold}}
-          {{else}}
-            <i>Not Set</i>
-          {{/if}}
+          <input id="amt-threshold" type="text" class="form-control" />
         </div>
       </div>
       <div class="row border border-top-0 border-color-secondary">
