@@ -29,9 +29,6 @@ Item.init(
     current_amount: {
       type: DataTypes.FLOAT,
     },
-    activity_log: {
-      type: DataTypes.TEXT
-    },
     spec_id: {
       type: DataTypes.INTEGER,
       references: {
@@ -52,7 +49,7 @@ Item.init(
         key: 'id',
         model: 'location'
       }
-    },
+    }
   },
   {
     sequelize,

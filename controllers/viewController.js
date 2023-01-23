@@ -30,6 +30,7 @@ export const displaySpecDetails = async (req, res) => {
     title: 'Spec Details | ' + process.env.WEB_TITLE,
     displayTitle: process.env.WEB_TITLE,
     username: req.session.username,
+    access: req.session.access,
     context: '/'
   });
 }

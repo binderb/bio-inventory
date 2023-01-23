@@ -1,5 +1,5 @@
 import Sequelize from 'sequelize';
-import { Spec, Category, Vendor, Item, Location } from '../models/index.js';
+import { Spec, Speclog, Category, Vendor, Item, Location } from '../models/index.js';
 
 // -----------------------------------------------
 // Common functions for API and view
@@ -15,14 +15,15 @@ export const findSpecByPk = async (id) => {
         model: Item,
         attributes: {
           include: [
-            [Sequelize.literal('(SELECT current_amount / amount FROM spec WHERE id = spec_id)'),'percent_remaining']
+            [Sequelize.literal('(SELECT items.current_amount / spec.amount FROM spec WHERE spec.id = items.spec_id)'),'percent_remaining']
           ]
         },
         include: [
           {model: Location, as: 'location'},
           {model: Location, as: 'sublocation'}
         ]
-      }
+      },
+      {model: Speclog}
     ]
   });
   return specData;

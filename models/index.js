@@ -4,6 +4,8 @@ import Item from './Item.js';
 import Category from './Category.js';
 import Location from './Location.js';
 import Vendor from './Vendor.js';
+import Speclog from './Speclog.js';
+import Itemlog from './Itemlog.js';
 
 Category.hasMany(Spec, {
   foreignKey: 'category_id',
@@ -65,6 +67,48 @@ Location.hasOne(Location, {
   onDelete: 'SET NULL'
 });
 
+Spec.hasMany(Speclog, {
+  foreignKey: 'spec_id',
+  onUpdate: 'CASCADE',
+  onDelete: 'CASCADE'
+});
+
+Speclog.belongsTo(Spec, {
+  foreignKey: 'spec_id'
+});
+
+User.hasMany(Speclog, {
+  foreignKey: 'user_id',
+  onUpdate: 'CASCADE',
+  onDelete: 'CASCADE'
+});
+
+Speclog.belongsTo(User, {
+  foreignKey: 'user_id'
+});
+
+Item.hasMany(Itemlog, {
+  foreignKey: 'item_id',
+  onUpdate: 'CASCADE',
+  onDelete: 'CASCADE'
+});
+
+Itemlog.belongsTo(Item, {
+  foreignKey: 'item_id'
+});
+
+User.hasMany(Itemlog, {
+  foreignKey: 'user_id',
+  onUpdate: 'CASCADE',
+  onDelete: 'CASCADE'
+});
+
+Itemlog.belongsTo(User, {
+  foreignKey: 'user_id'
+});
+
+
+
 
 export {
   User,
@@ -72,5 +116,7 @@ export {
   Item,
   Category,
   Location,
-  Vendor
+  Vendor,
+  Speclog,
+  Itemlog
 }

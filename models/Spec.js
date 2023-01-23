@@ -55,9 +55,6 @@ Spec.init(
     reorder_amt_threshold: {
       type: DataTypes.FLOAT
     },
-    activity_log: {
-      type: DataTypes.TEXT
-    },
     category_id: {
       type: DataTypes.INTEGER,
       references: {

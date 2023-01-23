@@ -25,7 +25,7 @@ router.route('/')
 
 router.route('/:id')
 // Get one spec
-.get(withAuthAPI,getOneSpec)
+.get(getOneSpec)
 // Update one spec
 .put(withAuthAPI,updateOneSpec)
 // Delete one spec

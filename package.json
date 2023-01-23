@@ -7,8 +7,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
+    "dev": "nodemon server.js",
     "seed": "node seeds/seed.js",
-    "clear": "node seeds/clear.js"
+    "clear": "node seeds/clear.js",
+    "upgradeLogs": "node db/migrate/upgradeLogs.js"
   },
   "repository": {
     "type": "git",
@@ -29,5 +31,8 @@
     "express-session": "^1.17.3",
     "mysql2": "^2.3.3",
     "sequelize": "^6.28.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }
