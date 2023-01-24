@@ -1,0 +1,53 @@
+<div class="col-12 col-md-8 col-xl-9 p-2 py-1" style="display:none;">
+  <div class="container-fluid bg-light border border-color-dark rounded">
+    <h5 class="fw-bold p-2 pt-4 pb-0 text-primary">Add Inventory Spec</h5>
+    <div id="create-spec" class="p-2">
+      <div class="row border border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Name:</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          <input id="name" type="text" class="form-control" />
+        </div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Part No.</div>
+        <div id="pn" class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center"></div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Category:</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          <select id="category" class="form-control"></select>
+        </div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Vendor:</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          <select id="vendor" class="form-control"></select>
+        </div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Item Size:</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          <input id="amount" class="form-control me-2" type="text" style="flex:1;">
+          <select id="units" class="form-control ms-2" style="flex:1;"></select>
+        </div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Alert Threshold<br/>(Item Qty):</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          <input id="qty-threshold" type="text" class="form-control" />
+        </div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Alert Threshold<br/>(Amt):</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          <input id="amt-threshold" type="text" class="form-control" />
+        </div>
+      </div>
+    </div>
+    <div id="control-bar" class="d-flex justify-content-end align-items-center mb-3">
+      <div id="err" class="text-danger me-3"></div>
+      <button id="create" class="btn btn-primary">Create</button>
+    </div>
+  </div>
+
+</div>

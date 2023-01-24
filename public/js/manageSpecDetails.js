@@ -67,13 +67,14 @@ function cancelEditSpec () {
   detailsTable.setAttribute('style','');
   const editTable = document.querySelector('#spec-edit');
   editTable.setAttribute('style','display:none;');
+  initializeEditor();
 }
 
 async function saveEditSpec () {
   const formData = {
     name: document.querySelector('#name').value.trim(),
-    category: document.querySelector('#category').value,
-    vendor: document.querySelector('#vendor').value,
+    category_id: document.querySelector('#category').value,
+    vendor_id: document.querySelector('#vendor').value,
     amount: document.querySelector('#amount').value.trim(),
     units: document.querySelector('#units').value,
     reorder_qty_threshold: (document.querySelector('#qty-threshold').value.trim() == '') ? null : document.querySelector('#qty-threshold').value.trim(),
@@ -87,6 +88,7 @@ async function saveEditSpec () {
     body: JSON.stringify(formData)
   });
   if (saveResponse.ok) {
+    const response = await saveResponse.json();
     document.location.reload();
   } else {
     const err = await saveResponse.json();

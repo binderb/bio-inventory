@@ -5,7 +5,8 @@ import {
   displayDashboard,
   displayLogin,
   displaySpecDetails,
-  displayItemDetails
+  displayItemDetails,
+  displaySpecLogs
 } from '../controllers/viewController.js';
 
 // ---------------------
@@ -21,9 +22,14 @@ router.route('/login')
 router.route('/')
 // Dashboard view
 .get(withAuthView, displayDashboard);
+// Spec details
 router.route('/specs/:id')
 .get(withAuthView, displaySpecDetails);
-router.route('/specs/:id')
+// Spec activity log
+router.route('/specs/:id/logs')
+.get(withAuthView, displaySpecLogs);
+// Item details
+router.route('/items/:id')
 .get(withAuthView, displayItemDetails);
 
 export default router;

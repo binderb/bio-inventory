@@ -24,6 +24,7 @@ export const loginUser = async (req, res) => {
     req.session.loggedIn = true;
     req.session.userid = userData.id;
     req.session.username = userData.username;
+    req.session.initials = userData.initials;
     req.session.access = userData.access;
     req.session.save(() => {
       res.status(200).json({userData, message: 'You are now logged in!'});

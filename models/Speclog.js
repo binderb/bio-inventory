@@ -22,6 +22,7 @@ Speclog.init(
     },
     spec_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
         model: "spec",
         key: "id"

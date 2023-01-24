@@ -24,10 +24,13 @@ export const findSpecByPk = async (id) => {
         ]
       },
       {model: Speclog}
-    ]
+    ],
+    order: [[{model: Speclog}, 'created', 'DESC']]
   });
   return specData;
 }
+
+
 
 // -----------------------------------------------
 // API Routes
@@ -73,7 +76,38 @@ export const getOneSpec = async (req, res) => {
 // Create one spec.
 export const createOneSpec = async (req, res) => {
   try {
+    // Generate part number.
+    const maxPN = await Spec.max('pn');
+    const newPN = parseInt(maxPN) + 1;
+    req.body.pn = newPN;
+    // Validate input.
+    req.body.amount = parseFloat(req.body.amount);
+    req.body.reorder_qty_threshold = (!req.body.reorder_qty_threshold) ? null : parseFloat(req.body.reorder_qty_threshold);
+    req.body.reorder_amt_threshold = (!req.body.reorder_amt_threshold) ? null : parseFloat(req.body.reorder_amt_threshold);
+    if (!req.body.name || req.body.name == '' || !req.body.amount || isNaN(req.body.amount) || isNaN(req.body.reorder_qty_threshold) || isNaN(req.body.reorder_amt_threshold)) {
+      res.status(403).json({message: `Please make sure that all required fields have an appropriate value!`});
+      return;
+    }
+    const nameCheck = await Spec.findOne({
+      where: {
+        name: {
+          [Sequelize.Op.like] : '%' + req.body.name + '%'
+        }
+      }
+    });
+    if (nameCheck) {
+      res.status(403).json({message: `A spec with the given name already exists in the database (PN: ${nameCheck.pn}). Please modify your entry.`});
+      return;
+    }
+    // Create record.
     const newSpec = await Spec.create(req.body);
+    // Create log entry.
+    const logBody = `${req.session.initials} created spec.`;
+    await Speclog.create({
+      user_id: req.session.userid,
+      spec_id: newSpec.id,
+      body: logBody
+    });
     res.status(201).json(newSpec);
   } catch (err) {
     res.status(500).json({message: `${err.name}: ${err.message}`});
@@ -83,9 +117,32 @@ export const createOneSpec = async (req, res) => {
 // Update one spec.
 export const updateOneSpec = async (req, res) => {
   try {
+    // Make sure the record exists.
     const specData = await findSpecByPk(req.params.id);
     if (!specData) {
       res.status(404).json({message: `No spec found with the given ID!`});
+      return;
+    }
+    // Validate input.
+    req.body.amount = parseFloat(req.body.amount);
+    req.body.reorder_qty_threshold = (!req.body.reorder_qty_threshold) ? null : parseFloat(req.body.reorder_qty_threshold);
+    req.body.reorder_amt_threshold = (!req.body.reorder_amt_threshold) ? null : parseFloat(req.body.reorder_amt_threshold);
+    if (!req.body.name || req.body.name == '' || !req.body.amount || isNaN(req.body.amount) || isNaN(req.body.reorder_qty_threshold) || isNaN(req.body.reorder_amt_threshold)) {
+      res.status(403).json({message: `Please make sure that all required fields have an appropriate value!`});
+      return;
+    }
+    const nameCheck = await Spec.findOne({
+      where: {
+        name: {
+          [Sequelize.Op.like] : '%' + req.body.name + '%'
+        },
+        id: {
+          [Sequelize.Op.not] : specData.id
+        }
+      }
+    });
+    if (nameCheck) {
+      res.status(403).json({message: `A spec with the given name already exists in the database (PN: ${nameCheck.pn}). Please modify your entry.`});
       return;
     }
     const updatedSpec = await Spec.update(req.body, {
@@ -93,7 +150,25 @@ export const updateOneSpec = async (req, res) => {
         id: req.params.id
       },
     });
-    res.status(200).json(updatedSpec);
+    const newSpec = await findSpecByPk(req.params.id);
+    // Identify differences between existing and incoming record.
+    const modifications = [];
+    console.log(`my new category id: ${newSpec.category_id}`)
+    if (specData.name != newSpec.name) modifications.push(`name (${specData.name} \u2192 ${newSpec.name})`);
+    if (specData.category_id != newSpec.category_id) modifications.push(`category (${specData.category.name} \u2192 ${newSpec.category.name})`);
+    if (specData.vendor_id != newSpec.vendor_id) modifications.push(`vendor (${specData.vendor.name} \u2192 ${newSpec.vendor.name})`);
+    if (specData.amount != newSpec.amount) modifications.push(`amount (${specData.amount} \u2192 ${newSpec.amount})`);
+    if (specData.units != newSpec.units) modifications.push(`units (${specData.units} \u2192 ${newSpec.units})`);
+    if (specData.reorder_qty_threshold != newSpec.reorder_qty_threshold) modifications.push(`reorder_qty_threshold (${specData.reorder_qty_threshold} \u2192 ${newSpec.reorder_qty_threshold})`);
+    if (specData.reorder_amt_threshold != newSpec.reorder_amt_threshold) modifications.push(`reorder_amt_threshold (${specData.reorder_amt_threshold} \u2192 ${newSpec.reorder_amt_threshold})`);
+    // Generate log entry.
+    const logBody = `${req.session.initials} updated fields: ${modifications.join(', ')}.`;
+    await Speclog.create({
+      user_id: req.session.userid,
+      spec_id: req.params.id,
+      body: logBody
+    });
+    res.status(200).json({message: logBody});
   } catch (err) {
     res.status(500).json({message: `${err.name}: ${err.message}`});
   }
@@ -121,4 +196,11 @@ export const deleteOneSpec = async (req, res) => {
 // Get enumerated units defined in the spec model.
 export const getUnits = async (req, res) => {
   res.status(200).json(Spec.getAttributes().units.values);
+}
+
+// Get next PN.
+export const getNextPN = async (req, res) => {
+  const pn = await Spec.max('pn');
+  const newPN = parseInt(pn) + 1;
+  res.status(200).json({pn: newPN});
 }
