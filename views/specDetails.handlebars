@@ -26,6 +26,10 @@
         <div id="detail-vendor" class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{spec.vendor.name}}</div>
       </div>
       <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Status:</div>
+        <div id="detail-status" class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{spec.status}}</div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
         <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Item Size:</div>
         <div id="detail-size" class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{spec.amount}} {{spec.units}}</div>
       </div>
@@ -88,6 +92,12 @@
         <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Vendor:</div>
         <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
           <select id="vendor" class="form-control"></select>
+        </div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Status:</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          <select id="status" class="form-control"></select>
         </div>
       </div>
       <div class="row border border-top-0 border-color-secondary">

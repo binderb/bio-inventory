@@ -1,4 +1,5 @@
 import Sequelize from 'sequelize';
+import sequelize from '../config/connection.js';
 import { Spec, Speclog, Category, Vendor, Item, Location } from '../models/index.js';
 
 // -----------------------------------------------
@@ -16,7 +17,6 @@ export const findSpecByPk = async (id) => {
         attributes: {
           include: [
             [Sequelize.literal('(SELECT items.current_amount / spec.amount FROM spec WHERE spec.id = items.spec_id)'),'percent_remaining'],
-            [Sequelize.literal('(SELECT x.position FROM (SELECT t.id, t.spec_id, @rownum := @rownum + 1 AS position FROM item t JOIN (SELECT @rownum := 0) r) x WHERE x.spec_id = items.spec_id AND x.id = items.id)'),'stock_index']
           ]
         },
         include: [
@@ -31,6 +31,13 @@ export const findSpecByPk = async (id) => {
       [{model: Item}, 'id', 'ASC']
     ]
   });
+  for (let i=0; i<specData.dataValues.items.length; i++) {
+    const stock_index = await sequelize.query(`
+    SELECT x.row_num FROM (SELECT t.id, t.spec_id, ROW_NUMBER() OVER (ORDER BY t.id) AS row_num FROM item t WHERE t.spec_id = ${specData.id}) x WHERE x.id = ${specData.dataValues.items[i].id}
+    `, {type: Sequelize.QueryTypes.SELECT});
+    specData.dataValues.items[i].dataValues.stock_index = stock_index[0].row_num;
+  }
+  
   return specData;
 }
 
@@ -88,7 +95,7 @@ export const createOneSpec = async (req, res) => {
     req.body.amount = parseFloat(req.body.amount);
     req.body.reorder_qty_threshold = (!req.body.reorder_qty_threshold) ? null : parseFloat(req.body.reorder_qty_threshold);
     req.body.reorder_amt_threshold = (!req.body.reorder_amt_threshold) ? null : parseFloat(req.body.reorder_amt_threshold);
-    if (!req.body.name || req.body.name == '' || !req.body.amount || isNaN(req.body.amount) || isNaN(req.body.reorder_qty_threshold) || isNaN(req.body.reorder_amt_threshold) || !req.body.category_id || req.body.category_id == '' || !req.body.vendor_id || req.body.vendor_id == '' || !req.body.units || req.body.units == '') {
+    if (!req.body.name || req.body.name == '' || !req.body.status || req.body.status == '' || !req.body.amount || isNaN(req.body.amount) || isNaN(req.body.reorder_qty_threshold) || isNaN(req.body.reorder_amt_threshold) || !req.body.category_id || req.body.category_id == '' || !req.body.vendor_id || req.body.vendor_id == '' || !req.body.units || req.body.units == '') {
       res.status(403).json({message: `Please make sure that all required fields have an appropriate value!`});
       return;
     }
@@ -157,7 +164,6 @@ export const updateOneSpec = async (req, res) => {
     const newSpec = await findSpecByPk(req.params.id);
     // Identify differences between existing and incoming record.
     const modifications = [];
-    console.log(`my new category id: ${newSpec.category_id}`)
     if (specData.name != newSpec.name) modifications.push(`name (${specData.name} \u2192 ${newSpec.name})`);
     if (specData.category_id != newSpec.category_id) modifications.push(`category (${specData.category.name} \u2192 ${newSpec.category.name})`);
     if (specData.vendor_id != newSpec.vendor_id) modifications.push(`vendor (${specData.vendor.name} \u2192 ${newSpec.vendor.name})`);
@@ -166,13 +172,15 @@ export const updateOneSpec = async (req, res) => {
     if (specData.reorder_qty_threshold != newSpec.reorder_qty_threshold) modifications.push(`reorder_qty_threshold (${specData.reorder_qty_threshold} \u2192 ${newSpec.reorder_qty_threshold})`);
     if (specData.reorder_amt_threshold != newSpec.reorder_amt_threshold) modifications.push(`reorder_amt_threshold (${specData.reorder_amt_threshold} \u2192 ${newSpec.reorder_amt_threshold})`);
     // Generate log entry.
-    const logBody = `${req.session.initials} updated fields: ${modifications.join(', ')}.`;
-    await Speclog.create({
-      user_id: req.session.userid,
-      spec_id: req.params.id,
-      body: logBody
-    });
-    res.status(200).json({message: logBody});
+    if (modifications.length > 0) {
+      const logBody = `${req.session.initials} updated fields: ${modifications.join(', ')}.`;
+      await Speclog.create({
+        user_id: req.session.userid,
+        spec_id: req.params.id,
+        body: logBody
+      });
+    }
+    res.status(200).json(newSpec);
   } catch (err) {
     res.status(500).json({message: `${err.name}: ${err.message}`});
   }
@@ -200,6 +208,11 @@ export const deleteOneSpec = async (req, res) => {
 // Get enumerated units defined in the spec model.
 export const getUnits = async (req, res) => {
   res.status(200).json(Spec.getAttributes().units.values);
+}
+
+// Get enumerated units defined in the spec model.
+export const getStatuses = async (req, res) => {
+  res.status(200).json(Spec.getAttributes().status.values);
 }
 
 // Get next PN.

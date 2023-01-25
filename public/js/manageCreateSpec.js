@@ -39,6 +39,21 @@ async function initializeEditor () {
       vendorSelect.append(option);
     }
   }
+  const statusSelect = document.querySelector('#status');
+  const statusResponse = await fetch('/api/specs/statuses');
+  if (statusResponse.ok) {
+    const statusData = await statusResponse.json();
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = '-- Choose --';
+    statusSelect.append(defaultOption);
+    for (let status of statusData) {
+      const option = document.createElement('option');
+      option.value = status;
+      option.textContent = status;
+      statusSelect.append(option);
+    }
+  }
   const unitSelect = document.querySelector('#units');
   const unitResponse = await fetch('/api/specs/units');
   if (unitResponse.ok) {
@@ -61,6 +76,7 @@ async function createSpec () {
     name: document.querySelector('#create-spec #name').value.trim(),
     category_id: document.querySelector('#create-spec #category').value,
     vendor_id: document.querySelector('#create-spec #vendor').value,
+    status: document.querySelector('#status').value,
     amount: document.querySelector('#create-spec #amount').value.trim(),
     units: document.querySelector('#create-spec #units').value,
     reorder_qty_threshold: (document.querySelector('#create-spec #qty-threshold').value.trim() == '') ? null : document.querySelector('#qty-threshold').value.trim(),

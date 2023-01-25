@@ -1,5 +1,7 @@
 import Sequelize from 'sequelize';
+import sequelize from '../config/connection.js';
 import { Item, Itemlog, Spec, Location } from '../models/index.js';
+import { format_datetime } from '../utils/helpers.js';
 
 // -----------------------------------------------
 // Common functions for API and view
@@ -7,6 +9,7 @@ import { Item, Itemlog, Spec, Location } from '../models/index.js';
 
 // Common GET one function.
 export const findItemByPk = async (id) => {
+
   const itemData = await Item.findByPk(id, {
     include: [
       {model: Spec},
@@ -17,12 +20,15 @@ export const findItemByPk = async (id) => {
     attributes: {
       include: [
         [Sequelize.literal('(SELECT item.current_amount / spec.amount FROM spec WHERE spec.id = item.spec_id)'),'percent_remaining'],
-        [Sequelize.literal('(SELECT x.position FROM (SELECT t.id, t.spec_id, @rownum := @rownum + 1 AS position FROM item t JOIN (SELECT @rownum := 0) r) x WHERE x.spec_id = item.spec_id AND x.id = item.id)'),'stock_index'],
         [Sequelize.literal('(SELECT COUNT(*) FROM item t WHERE t.spec_id = item.spec_id)'), 'stock_total']
       ]
     },
     order: [[{model: Itemlog}, 'created', 'DESC']]
   });
+  const stock_index = await sequelize.query(`
+  SELECT x.row_num FROM (SELECT t.id, t.spec_id, ROW_NUMBER() OVER (ORDER BY t.id) AS row_num FROM item t WHERE t.spec_id = ${itemData.spec_id}) x WHERE x.id = ${itemData.id}
+  `, {type: Sequelize.QueryTypes.SELECT});
+  itemData.dataValues.stock_index = stock_index[0].row_num;
   return itemData;
 }
 
@@ -49,10 +55,60 @@ export const createOneItem = async (req, res) => {
 
 // Update one item.
 export const updateOneItem = async (req, res) => {
-
+  try {
+    // Make sure the record exists.
+    const itemData = await findItemByPk(req.params.id);
+    if (!itemData) {
+      res.status(404).json({message: `No item found with the given ID!`});
+      return;
+    }
+    // Validate input.
+    req.body.current_amount = parseFloat(req.body.current_amount);
+    req.body.boxgrid = (req.body.boxgrid == '') ? null : req.body.boxgrid;
+    req.body.sublocation_id = (req.body.sublocation_id == '') ? null : req.body.sublocation_id;
+    if (!req.body.current_amount || isNaN(req.body.current_amount) || (req.body.boxgrid && req.body.boxgrid.length < 2)) {
+      res.status(403).json({message: `Please make sure that all required fields have an appropriate value!`});
+      return;
+    }
+    // Update record.
+    const updatedItem = await Item.update(req.body, {
+      where: {
+        id: req.params.id
+      },
+    });
+    const newItem = await findItemByPk(req.params.id);
+    // Identify differences between existing and incoming record.
+    const modifications = [];
+    const oldDate = format_datetime(itemData.date_received);
+    const newDate = format_datetime(newItem.date_received);
+    if (itemData.lot != newItem.lot) modifications.push(`lot (${itemData.lot} \u2192 ${newItem.lot})`);
+    if (itemData.status != newItem.status) modifications.push(`status (${itemData.status} \u2192 ${newItem.status})`);
+    if (itemData.location_id != newItem.location_id) modifications.push(`location (${itemData.location.name} \u2192 ${newItem.location.name})`);
+    if (itemData.sublocation_id != newItem.sublocation_id) modifications.push(`sublocation (${(itemData.sublocation) ? itemData.sublocation.name : null} \u2192 ${(newItem.sublocation) ? newItem.sublocation.name : null})`);
+    if (itemData.boxgrid != newItem.boxgrid) modifications.push(`boxgrid (${itemData.boxgrid} \u2192 ${newItem.boxgrid})`);
+    if (itemData.current_amount != newItem.current_amount) modifications.push(`current amount (${itemData.current_amount} \u2192 ${newItem.current_amount})`);
+    if (oldDate != newDate) modifications.push(`date received (${oldDate} \u2192 ${newDate})`);
+    // Generate log entry.
+    if (modifications.length > 0) {
+      const logBody = `${req.session.initials} updated fields: ${modifications.join(', ')}.`;
+      await Itemlog.create({
+        user_id: req.session.userid,
+        item_id: req.params.id,
+        body: logBody
+      });
+    }
+    res.status(200).json(newItem);
+  } catch (err) {
+    res.status(500).json({message: `${err.name}: ${err.message}`});
+  }
 }
 
 // Delete one item.
 export const deleteOneItem = async (req, res) => {
   
+}
+
+// Get enumerated statuses defined in the item model.
+export const getStatuses = async (req, res) => {
+  res.status(200).json(Item.getAttributes().status.values);
 }

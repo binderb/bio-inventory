@@ -6,6 +6,7 @@ async function initializeEditor () {
   const categorySelect = document.querySelector('#category');
   const categoryResponse = await fetch('/api/categories');
   if (categoryResponse.ok) {
+    categorySelect.innerHTML = '';
     const categoryData = await categoryResponse.json();
     for (let category of categoryData) {
       const option = document.createElement('option');
@@ -18,6 +19,7 @@ async function initializeEditor () {
   const vendorSelect = document.querySelector('#vendor');
   const vendorResponse = await fetch('/api/vendors');
   if (vendorResponse.ok) {
+    vendorSelect.innerHTML = '';
     const vendorData = await vendorResponse.json();
     for (let vendor of vendorData) {
       const option = document.createElement('option');
@@ -27,11 +29,25 @@ async function initializeEditor () {
     }
     vendorSelect.value = spec.vendor_id;
   }
+  const statusSelect = document.querySelector('#status');
+  const statusResponse = await fetch('/api/specs/statuses');
+  if (statusResponse.ok) {
+    statusSelect.innerHTML = '';
+    const statusData = await statusResponse.json();
+    for (let status of statusData) {
+      const option = document.createElement('option');
+      option.value = status;
+      option.textContent = status;
+      statusSelect.append(option);
+    }
+    statusSelect.value = spec.status;
+  }
   const amountField = document.querySelector('#amount');
   amountField.value = spec.amount;
   const unitSelect = document.querySelector('#units');
   const unitResponse = await fetch('/api/specs/units');
   if (unitResponse.ok) {
+    unitSelect.innerHTML = '';
     const unitData = await unitResponse.json();
     for (let unit of unitData) {
       const option = document.createElement('option');
@@ -43,14 +59,6 @@ async function initializeEditor () {
   }
   const qtyThresholdField = document.querySelector('#qty-threshold');
   qtyThresholdField.value = spec.reorder_qty_threshold;
-  // const qtyThresholdField = document.querySelector('#qty-threshold');
-  // qtyThresholdField.textContent = 
-  // const qtyPicker = new easepick.create({
-  //   element: qtyThresholdField,
-  //   css: [
-  //     'https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.0/dist/index.css',
-  //   ],
-  // });
   const amtThresholdField = document.querySelector('#amt-threshold');
   amtThresholdField.value = spec.reorder_amt_threshold;
 }
@@ -75,6 +83,7 @@ async function saveEditSpec () {
     name: document.querySelector('#name').value.trim(),
     category_id: document.querySelector('#category').value,
     vendor_id: document.querySelector('#vendor').value,
+    status: document.querySelector('#status').value,
     amount: document.querySelector('#amount').value.trim(),
     units: document.querySelector('#units').value,
     reorder_qty_threshold: (document.querySelector('#qty-threshold').value.trim() == '') ? null : document.querySelector('#qty-threshold').value.trim(),

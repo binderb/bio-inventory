@@ -8,6 +8,7 @@ import {
   updateOneSpec,
   deleteOneSpec,
   getUnits,
+  getStatuses,
   getNextPN
 } from '../../controllers/specController.js';
 
@@ -29,8 +30,12 @@ router.route('/units')
 // Get enumerations for units
 .get(withAuthAPI,getUnits);
 
+router.route('/statuses')
+// Get enumerations for statuses
+.get(withAuthAPI,getStatuses);
+
 router.route('/next-pn')
-// Get enumerations for units
+// Get next PN
 .get(withAuthAPI,getNextPN);
 
 router.route('/:id')

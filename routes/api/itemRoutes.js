@@ -5,7 +5,8 @@ import {
   getOneItem,
   createOneItem,
   updateOneItem,
-  deleteOneItem
+  deleteOneItem,
+  getStatuses
 } from '../../controllers/itemController.js';
 
 // ---------------------
@@ -20,12 +21,16 @@ router.route('/')
 // Create one item
 .post(withAuthAPI,createOneItem);
 
+router.route('/statuses')
+// Get enumerations for statuses
+.get(withAuthAPI,getStatuses);
+
 router.route('/:id')
-// Get one spec
+// Get one item
 .get(withAuthAPI,getOneItem)
-// Update one spec
-// .put(withAuthAPI,updateOneItem)
-// Delete one spec
+// Update one item
+.put(withAuthAPI,updateOneItem)
+// Delete one item
 // .delete(withAuthAPI,deleteOneItem);
 
 export default router;
