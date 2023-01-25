@@ -1,0 +1,121 @@
+{{>navbar}}
+<div class="container-fluid p-0">
+  <a href="{{context}}" class="link-dark m-2 mb-0 d-inline-block">&larr; Back</a>
+  <div class="container-fluid m-0 p-0 my-2 p-4 bg-light border-top border-bottom border-color-secondary">
+    
+    {{!-- Item Details Table --}}
+    <div id="item-details">
+      <div id="details-admin-bar" class="d-flex justify-content-end">
+        <button id="edit" class="btn btn-primary mb-3"><i class="fa-solid fa-pen-to-square me-2"></i>Edit Item</button>
+      </div>
+      <h2 id="detail-name" class="col-12 text-primary fw-bold pb-2">
+        {{item.spec.name}}
+      </h2>
+      <div class="row border border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Stock Index:</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{item.stock_index}} of {{item.stock_total}}</div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Lot No.</div>
+        <div id="detail-lot" class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{item.lot}}</div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Status:</div>
+        <div id="detail-status" class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          {{#if (equals item.status 'unopened')}}
+            <span class="badge rounded-pill bg-primary"><i class="fa-solid fa-box pe-1"></i>Unopened</span>
+          {{else if (equals item.status 'opened')}}
+            <span class="badge rounded-pill bg-dark"><i class="fa-solid fa-box-open pe-1"></i>Opened</span>
+          {{else if (equals item.status 'empty')}}
+            <span class="badge rounded-pill bg-danger"><i class="fa-solid fa-ban pe-1"></i>Empty</span>
+          {{/if}}
+        </div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Location:</div>
+        <div id="detail-location" class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{item.location.name}}</div>
+      </div>
+      {{#if item.sublocation}}
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Sublocation:</div>
+        <div id="detail-sublocation" class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{item.sublocation.name}}</div>
+      </div>
+      {{/if}}
+      {{#if item.boxgrid}}
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Box Grid:</div>
+        <div id="detail-sublocation" class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{item.boxgrid}}</div>
+      </div>
+      {{/if}}
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Current Amount:</div>
+        <div id="detail-amount" class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{item.current_amount}} {{item.spec.units}}</div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Date Received:</div>
+        <div id="detail-received" class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{format_datetime item.date_received}}</div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">
+          Most Recent Activity:
+        </div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-start flex-column">
+          {{#if item.itemlogs}}
+          <div class="fw-bold d-block">{{format_datetime item.itemlogs.[0].created}}</div>
+          <div>{{item.itemlogs.[0].body}}</div>
+          <a class="btn btn-primary btn-sm my-1" href="/specs/{{item.spec_id}}/items/{{item.id}}/logs">View Logs</a>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+    {{!-- Spec Edit Table --}}
+    {{!-- <div id="spec-edit" style="display:none;">
+      {{#if (isAdmin access)}}
+      <div id="edit-admin-bar" class="d-flex justify-content-end align-items-center mb-3">
+        <div id="err" class="text-danger me-3"></div>
+        <button id="cancel" class="btn btn-secondary me-2"><i class="fa-solid fa-xmark me-2"></i>Cancel</button>
+        <button id="save" class="btn btn-primary"><i class="fa-solid fa-check me-2"></i>Save Edits</button>
+      </div>
+      {{/if}}
+      <h2 class="col-12 text-primary fw-bold pb-2">
+        <input id="name" class="form-control" type="text">
+      </h2>
+      <div class="row border border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Part No.</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">{{spec.pn}}</div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Category:</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          <select id="category" class="form-control"></select>
+        </div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Vendor:</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          <select id="vendor" class="form-control"></select>
+        </div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Item Size:</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          <input id="amount" class="form-control me-2" type="text" style="flex:1;">
+          <select id="units" class="form-control ms-2" style="flex:1;"></select>
+        </div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Alert Threshold<br/>(Item Qty):</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          <input id="qty-threshold" type="text" class="form-control" />
+        </div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Alert Threshold<br/>(Amt):</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          <input id="amt-threshold" type="text" class="form-control" />
+        </div>
+      </div>
+    </div> --}}
+  </div>
+</div>
+<script src="/js/logout.js"></script>

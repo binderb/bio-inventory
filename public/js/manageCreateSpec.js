@@ -13,6 +13,10 @@ async function initializeEditor () {
   const categoryResponse = await fetch('/api/categories');
   if (categoryResponse.ok) {
     const categoryData = await categoryResponse.json();
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = '-- Choose --';
+    categorySelect.append(defaultOption);
     for (let category of categoryData) {
       const option = document.createElement('option');
       option.value = category.id;
@@ -24,6 +28,10 @@ async function initializeEditor () {
   const vendorResponse = await fetch('/api/vendors');
   if (vendorResponse.ok) {
     const vendorData = await vendorResponse.json();
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = '-- Choose --';
+    vendorSelect.append(defaultOption);
     for (let vendor of vendorData) {
       const option = document.createElement('option');
       option.value = vendor.id;
@@ -35,6 +43,10 @@ async function initializeEditor () {
   const unitResponse = await fetch('/api/specs/units');
   if (unitResponse.ok) {
     const unitData = await unitResponse.json();
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = '-- Choose --';
+    unitSelect.append(defaultOption);
     for (let unit of unitData) {
       const option = document.createElement('option');
       option.value = unit;

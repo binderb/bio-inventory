@@ -15,7 +15,8 @@ export const findSpecByPk = async (id) => {
         model: Item,
         attributes: {
           include: [
-            [Sequelize.literal('(SELECT items.current_amount / spec.amount FROM spec WHERE spec.id = items.spec_id)'),'percent_remaining']
+            [Sequelize.literal('(SELECT items.current_amount / spec.amount FROM spec WHERE spec.id = items.spec_id)'),'percent_remaining'],
+            [Sequelize.literal('(SELECT x.position FROM (SELECT t.id, t.spec_id, @rownum := @rownum + 1 AS position FROM item t JOIN (SELECT @rownum := 0) r) x WHERE x.spec_id = items.spec_id AND x.id = items.id)'),'stock_index']
           ]
         },
         include: [
@@ -25,7 +26,10 @@ export const findSpecByPk = async (id) => {
       },
       {model: Speclog}
     ],
-    order: [[{model: Speclog}, 'created', 'DESC']]
+    order: [
+      [{model: Speclog}, 'created', 'DESC'],
+      [{model: Item}, 'id', 'ASC']
+    ]
   });
   return specData;
 }
@@ -84,7 +88,7 @@ export const createOneSpec = async (req, res) => {
     req.body.amount = parseFloat(req.body.amount);
     req.body.reorder_qty_threshold = (!req.body.reorder_qty_threshold) ? null : parseFloat(req.body.reorder_qty_threshold);
     req.body.reorder_amt_threshold = (!req.body.reorder_amt_threshold) ? null : parseFloat(req.body.reorder_amt_threshold);
-    if (!req.body.name || req.body.name == '' || !req.body.amount || isNaN(req.body.amount) || isNaN(req.body.reorder_qty_threshold) || isNaN(req.body.reorder_amt_threshold)) {
+    if (!req.body.name || req.body.name == '' || !req.body.amount || isNaN(req.body.amount) || isNaN(req.body.reorder_qty_threshold) || isNaN(req.body.reorder_amt_threshold) || !req.body.category_id || req.body.category_id == '' || !req.body.vendor_id || req.body.vendor_id == '' || !req.body.units || req.body.units == '') {
       res.status(403).json({message: `Please make sure that all required fields have an appropriate value!`});
       return;
     }

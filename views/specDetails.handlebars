@@ -125,7 +125,7 @@
         </div>
         {{!-- Item details --}}
         <div class="d-flex flex-column justify-content-center text-dark text-decoration-none">
-          <div><b>Stock Index:</b>&nbsp;{{inc @index}}</div>
+          <div><b>Stock Index:</b>&nbsp;{{item.stock_index}}</div>
           <div><b>Lot #:</b>&nbsp;{{item.lot}}</div>
           <div><b>Location:</b>&nbsp;{{item.location.name}}{{#if item.sublocation}}, {{item.sublocation.name}}{{/if}}</div>
           <div class="d-flex align-items-center"><b>Status:</b>&nbsp;

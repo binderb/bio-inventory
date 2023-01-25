@@ -6,7 +6,8 @@ import {
   displayLogin,
   displaySpecDetails,
   displayItemDetails,
-  displaySpecLogs
+  displaySpecLogs,
+  displayItemLogs
 } from '../controllers/viewController.js';
 
 // ---------------------
@@ -29,7 +30,10 @@ router.route('/specs/:id')
 router.route('/specs/:id/logs')
 .get(withAuthView, displaySpecLogs);
 // Item details
-router.route('/items/:id')
+router.route('/specs/:specid/items/:id')
 .get(withAuthView, displayItemDetails);
+// Item activity log
+router.route('/specs/:specid/items/:id/logs')
+.get(withAuthView, displayItemLogs);
 
 export default router;

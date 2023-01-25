@@ -63,7 +63,7 @@ const upgradeLogs = async () => {
       const itemID = itemBody.match(itemIDPattern)[0];
       const itemLogBody = {
         user_id: userData.id,
-        spec_id: itemID,
+        item_id: itemID,
         created: oldItemLog.date,
         body: oldItemLog.entry
       }
