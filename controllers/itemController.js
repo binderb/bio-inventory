@@ -50,7 +50,40 @@ export const getOneItem = async (req, res) => {
 
 // Create one item.
 export const createOneItem = async (req, res) => {
-
+  try {
+    // Validate input.
+    const specStringArray = req.body.spec_pn.split(' ');
+    req.body.spec_pn = (specStringArray[0]) ? specStringArray[0] : null;
+    req.body.current_amount = parseFloat(req.body.current_amount);
+    req.body.boxgrid = (req.body.boxgrid == '') ? null : req.body.boxgrid;
+    req.body.sublocation_id = (req.body.sublocation_id == '') ? null : req.body.sublocation_id;
+    if (!req.body.status || req.body.status == '' || !req.body.location_id || req.body.location_id == '' || !req.body.current_amount || isNaN(req.body.current_amount) || (req.body.boxgrid && req.body.boxgrid.length < 2)) {
+      res.status(403).json({message: `Please make sure that all required fields have an appropriate value!`});
+      return;
+    }
+    const itemSpec = await Spec.findOne({
+      where: {
+        pn: req.body.spec_pn
+      }
+    });
+    if (!itemSpec) {
+      res.status(403).json({message: `No matching spec found. Please be sure to select from the autocomplete menu.`});
+      return;
+    }
+    // Create record.
+    req.body.spec_id = itemSpec.id;
+    const newItem = await Item.create(req.body);
+    // Create log entry.
+    const logBody = `${req.session.initials} created item.`;
+    await Itemlog.create({
+      user_id: req.session.userid,
+      item_id: newItem.id,
+      body: logBody
+    });
+    res.status(201).json(newItem);
+  } catch (err) {
+    res.status(500).json({message: `${err.name}: ${err.message}`});
+  }
 }
 
 // Update one item.

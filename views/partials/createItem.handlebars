@@ -1,0 +1,64 @@
+<div id="create-item-panel" class="col-12 col-md-8 col-xl-9 p-2 py-1">
+  <div class="container-fluid bg-light border border-color-dark rounded">
+    <h5 class="fw-bold p-2 pt-4 pb-0 text-primary">Add Inventory Item</h5>
+    <div id="create-item" class="p-2">
+      <div class="row border border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Item Spec:</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          <input id="spec" type="text" class="form-control" list="specList" />
+          <datalist id="specList">
+          </datalist>
+        </div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Lot No.</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          <input id="lot" class="form-control me-2" type="text">
+        </div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Status:</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          <select id="status" class="form-control"></select>
+        </div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Location:</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          <select id="location" class="form-control"></select>
+        </div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Sublocation:</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          <select id="sublocation" class="form-control"></select>
+        </div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Box Grid Location:</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          <select id="boxgrid-alpha" class="form-control me-2" style="flex:1"></select>
+          <select id="boxgrid-num" class="form-control ms-2" style="flex:1"></select>
+        </div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Current Amount:</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          <input id="amount" class="form-control me-2" type="text" style="flex:1">
+          <span>{{item.spec.units}}</span>
+        </div>
+      </div>
+      <div class="row border border-top-0 border-color-secondary">
+        <div class="col-12 col-sm-3 fw-bold bg-white p-2 detail-category">Date Received:</div>
+        <div class="col-12 col-sm-9 bg-white p-2 d-flex align-items-center">
+          <input id="received" class="form-control me-2" type="text">
+        </div>
+      </div>
+    </div>
+    <div id="control-bar" class="d-flex justify-content-end align-items-center mb-3">
+      <div id="err" class="text-danger me-3"></div>
+      <button id="create" class="btn btn-primary">Add Item</button>
+    </div>
+  </div>
+
+</div>

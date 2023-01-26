@@ -9,7 +9,7 @@ async function updatePN () {
 
 async function initializeEditor () {
   updatePN();
-  const categorySelect = document.querySelector('#category');
+  const categorySelect = document.querySelector('#create-spec-panel #category');
   const categoryResponse = await fetch('/api/categories');
   if (categoryResponse.ok) {
     const categoryData = await categoryResponse.json();
@@ -24,7 +24,7 @@ async function initializeEditor () {
       categorySelect.append(option);
     }
   }
-  const vendorSelect = document.querySelector('#vendor');
+  const vendorSelect = document.querySelector('#create-spec-panel #vendor');
   const vendorResponse = await fetch('/api/vendors');
   if (vendorResponse.ok) {
     const vendorData = await vendorResponse.json();
@@ -39,7 +39,7 @@ async function initializeEditor () {
       vendorSelect.append(option);
     }
   }
-  const statusSelect = document.querySelector('#status');
+  const statusSelect = document.querySelector('#create-spec-panel #status');
   const statusResponse = await fetch('/api/specs/statuses');
   if (statusResponse.ok) {
     const statusData = await statusResponse.json();
@@ -54,7 +54,7 @@ async function initializeEditor () {
       statusSelect.append(option);
     }
   }
-  const unitSelect = document.querySelector('#units');
+  const unitSelect = document.querySelector('#create-spec-panel #units');
   const unitResponse = await fetch('/api/specs/units');
   if (unitResponse.ok) {
     const unitData = await unitResponse.json();
@@ -82,7 +82,7 @@ async function createSpec () {
     reorder_qty_threshold: (document.querySelector('#create-spec #qty-threshold').value.trim() == '') ? null : document.querySelector('#qty-threshold').value.trim(),
     reorder_amt_threshold: (document.querySelector('#create-spec #amt-threshold').value.trim() == '') ? null : document.querySelector('#amt-threshold').value.trim()
   }
-  const createResponse = await fetch('/api/specs/'+window.location.href.split('/').pop(), {
+  const createResponse = await fetch('/api/specs/', {
     method: 'POST',
     headers: {
       'Content-Type' : 'application/json'
@@ -93,9 +93,9 @@ async function createSpec () {
     document.location.reload();
   } else {
     const err = await createResponse.json();
-    document.querySelector('#err').textContent = err.message;
+    document.querySelector('#create-spec-panel #err').textContent = err.message;
   }
 }
 
 initializeEditor();
-document.querySelector('#create').addEventListener('click',createSpec);
+document.querySelector('#create-spec-panel #create').addEventListener('click',createSpec);
