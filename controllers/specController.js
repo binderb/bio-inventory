@@ -211,7 +211,11 @@ export const deleteOneSpec = async (req, res) => {
       res.status(404).json({message: `No spec found with the given ID!`});
       return;
     }
-    const deletedSpec = await Spec.delete({
+    if (specData.items.length > 0) {
+      res.statsu(403).json({message: `Cannot delete a spec that has associated items.`});
+      return;
+    }
+    const deletedSpec = await Spec.destroy({
       where: {
         id: req.params.id
       }

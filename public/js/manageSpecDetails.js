@@ -70,6 +70,32 @@ function editSpec () {
   editTable.setAttribute('style','');
 }
 
+async function deleteSpec () {
+  const specResponse = await fetch('/api/specs/'+window.location.href.split('/').pop());
+  if (!specResponse.ok) {
+    const err = await specResponse.json();
+    document.querySelector('#err').textContent = err.message;
+    return;
+  }
+  const specData = await specResponse.json();
+  if (specData.items.length > 0) {
+    alert(`You cannot delete this spec because there are one or more items in the database associated with it. You must delete all associated items before you're allowed to delete the spec.`);
+    return;
+  }
+  if (!confirm(`Are you sure? This spec and all its activity logs will be permanently deleted from the database.`)) {
+    return;
+  }
+  const deleteResponse = await fetch('/api/specs/'+window.location.href.split('/').pop(), {
+    method: 'DELETE'
+  });
+  if (deleteResponse.ok) {
+    document.location.replace(`/`);
+  } else {
+    const err = await deleteResponse.json();
+    document.querySelector('#delete-err').textContent = err.message;
+  }
+}
+
 function cancelEditSpec () {
   const detailsTable = document.querySelector('#spec-details');
   detailsTable.setAttribute('style','');
@@ -109,3 +135,6 @@ initializeEditor();
 document.querySelector('#edit').addEventListener('click',editSpec);
 document.querySelector('#cancel').addEventListener('click',cancelEditSpec);
 document.querySelector('#save').addEventListener('click',saveEditSpec);
+if (document.querySelector('#delete')) {
+  document.querySelector('#delete').addEventListener('click',deleteSpec);
+}

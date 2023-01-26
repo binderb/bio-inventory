@@ -6,7 +6,9 @@
     {{!-- Spec Details Table --}}
     <div id="spec-details">
       {{#if (isAdmin access)}}
-        <div id="details-admin-bar" class="d-flex justify-content-end">
+        <div id="details-admin-bar" class="d-flex justify-content-end align-items-center">
+          <div id="delete-err" class="text-danger me-3"></div>
+          <button id="delete" class="btn btn-danger mb-3 me-2"><i class="fa-solid fa-trash-can me-2"></i>Delete Spec</button>
           <button id="edit" class="btn btn-primary mb-3"><i class="fa-solid fa-pen-to-square me-2"></i>Edit Spec</button>
         </div>
       {{/if}}

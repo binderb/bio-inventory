@@ -138,7 +138,18 @@ export const updateOneItem = async (req, res) => {
 
 // Delete one item.
 export const deleteOneItem = async (req, res) => {
-  
+  // Make sure the record exists.
+  const itemData = await findItemByPk(req.params.id);
+  if (!itemData) {
+    res.status(404).json({message: `No item found with the given ID!`});
+    return;
+  }
+  await Item.destroy({
+    where: {
+      id: req.params.id
+    }
+  });
+  res.status(200).json(itemData);
 }
 
 // Get enumerated statuses defined in the item model.

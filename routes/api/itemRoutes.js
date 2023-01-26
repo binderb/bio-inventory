@@ -31,6 +31,6 @@ router.route('/:id')
 // Update one item
 .put(withAuthAPI,updateOneItem)
 // Delete one item
-// .delete(withAuthAPI,deleteOneItem);
+.delete(withAuthAPI,deleteOneItem);
 
 export default router;

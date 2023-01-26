@@ -92,6 +92,22 @@ function editItem () {
   editTable.setAttribute('style','');
 }
 
+async function deleteItem () {
+  if (!confirm(`Are you sure? This item and all activity logs will be permanently deleted from the database.`)) {
+    return;
+  }
+  const deleteResponse = await fetch('/api/items/'+window.location.href.split('/').pop(), {
+    method: 'DELETE'
+  });
+  if (deleteResponse.ok) {
+    const deleteData = await deleteResponse.json();
+    document.location.replace(`/specs/${deleteData.spec_id}`);
+  } else {
+    const err = await deleteResponse.json();
+    document.querySelector('#delete-err').textContent = err.message;
+  }
+}
+
 function cancelEditItem () {
   const detailsTable = document.querySelector('#item-details');
   detailsTable.setAttribute('style','');
@@ -152,3 +168,6 @@ document.querySelector('#edit').addEventListener('click',editItem);
 document.querySelector('#cancel').addEventListener('click',cancelEditItem);
 document.querySelector('#save').addEventListener('click',saveEditItem);
 document.querySelector('#location').addEventListener('change',updateSublocations);
+if (document.querySelector('#delete')) {
+  document.querySelector('#delete').addEventListener('click',deleteItem);
+}
