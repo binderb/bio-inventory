@@ -15,9 +15,9 @@
           <input type="radio" class="btn-check" name="btnradio" id="add-item" autocomplete="off" >
           <label class="btn btn-outline-primary text-start" for="add-item"><i class="fa-solid fa-file-import pe-2"></i><span class="d-none d-md-inline">Add Inventory Item</span></label>
           <input type="radio" class="btn-check" name="btnradio" id="add-location" autocomplete="off" >
-          <label class="btn btn-outline-primary text-start" for="add-location"><i class="fa-solid fa-map-location-dot pe-2"></i><span class="d-none d-md-inline">Add Locations</span></label>
+          <label class="btn btn-outline-primary text-start" for="add-location"><i class="fa-solid fa-map-location-dot pe-2"></i><span class="d-none d-md-inline">Add Location</span></label>
           <input type="radio" class="btn-check" name="btnradio" id="add-vendor" autocomplete="off" >
-          <label class="btn btn-outline-primary text-start" for="add-vendor"><i class="fa-solid fa-industry pe-2"></i><span class="d-none d-md-inline">Add Vendors</span></label>
+          <label class="btn btn-outline-primary text-start" for="add-vendor"><i class="fa-solid fa-industry pe-2"></i><span class="d-none d-md-inline">Add Vendor</span></label>
         </div>
       </div>
       {{!-- admin tasks --}}
@@ -34,12 +34,15 @@
     {{>quickSearch}}
     {{!-- spec creation --}}
     {{>createSpec}}
-    {{!-- spec creation --}}
+    {{!-- item creation --}}
     {{>createItem}}
+    {{!-- location creation --}}
+    {{>createLocation}}
   </div>
 </section>
 <script src="/js/manageQuickSearch.js"></script>
 <script src="/js/manageCreateSpec.js"></script>
 <script src="/js/manageCreateItem.js"></script>
+<script src="/js/manageCreateLocation.js"></script>
 <script src="/js/manageDashboardMenu.js"></script>
 <script src="/js/logout.js"></script>
