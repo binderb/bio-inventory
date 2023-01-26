@@ -31,11 +31,13 @@ export const findSpecByPk = async (id) => {
       [{model: Item}, 'id', 'ASC']
     ]
   });
-  for (let i=0; i<specData.dataValues.items.length; i++) {
-    const stock_index = await sequelize.query(`
-    SELECT x.row_num FROM (SELECT t.id, t.spec_id, ROW_NUMBER() OVER (ORDER BY t.id) AS row_num FROM item t WHERE t.spec_id = ${specData.id}) x WHERE x.id = ${specData.dataValues.items[i].id}
-    `, {type: Sequelize.QueryTypes.SELECT});
-    specData.dataValues.items[i].dataValues.stock_index = stock_index[0].row_num;
+  if (specData) {
+    for (let i=0; i<specData.dataValues.items.length; i++) {
+      const stock_index = await sequelize.query(`
+      SELECT x.row_num FROM (SELECT t.id, t.spec_id, ROW_NUMBER() OVER (ORDER BY t.id) AS row_num FROM item t WHERE t.spec_id = ${specData.id}) x WHERE x.id = ${specData.dataValues.items[i].id}
+      `, {type: Sequelize.QueryTypes.SELECT});
+      specData.dataValues.items[i].dataValues.stock_index = stock_index[0].row_num;
+    }
   }
   
   return specData;
@@ -77,6 +79,21 @@ export const getAllSpecs = async (req, res) => {
 export const getOneSpec = async (req, res) => {
   try {
     const specData = await findSpecByPk(req.params.id);
+    if (specData) res.status(200).json(specData);
+    else res.status(404).json({message: `No spec found with the given ID!`});
+  } catch (err) {
+    res.status(500).json({message: `${err.name}: ${err.message}`});
+  }
+}
+
+// Get one spec by part number.
+export const getOneSpecByPN = async (req, res) => {
+  try {
+    const specData = await Spec.findOne({
+      where: {
+        pn: req.params.pn
+      }
+    });
     if (specData) res.status(200).json(specData);
     else res.status(404).json({message: `No spec found with the given ID!`});
   } catch (err) {

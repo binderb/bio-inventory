@@ -4,6 +4,7 @@ import { withAuthAPI } from '../../utils/auth.js';
 import {
   getAllSpecs,
   getOneSpec,
+  getOneSpecByPN,
   createOneSpec,
   updateOneSpec,
   deleteOneSpec,
@@ -37,6 +38,10 @@ router.route('/statuses')
 router.route('/next-pn')
 // Get next PN
 .get(withAuthAPI,getNextPN);
+
+router.route('/pn/:pn')
+// Get one spec by PN
+.get(withAuthAPI,getOneSpecByPN);
 
 router.route('/:id')
 // Get one spec

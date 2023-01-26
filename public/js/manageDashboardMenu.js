@@ -5,6 +5,7 @@ function hideAllPanels() {
   document.querySelector('#create-spec-panel').setAttribute('style','display:none;');
   document.querySelector('#create-item-panel').setAttribute('style','display:none;');
   document.querySelector('#create-location-panel').setAttribute('style','display:none;');
+  document.querySelector('#create-vendor-panel').setAttribute('style','display:none;');
 }
 
 nav.addEventListener('click', (e) => {
@@ -28,9 +29,12 @@ function switchToPanel (id) {
       case 'add-location':
         document.querySelector('#create-location-panel').setAttribute('style','');
         break;
+      case 'add-vendor':
+        document.querySelector('#create-vendor-panel').setAttribute('style','');
+        break;
       default:
         break;
     }
 }
 
-switchToPanel('add-location');
+switchToPanel('search');

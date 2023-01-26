@@ -73,7 +73,7 @@ async function initializeEditor () {
 
 async function createSpec () {
   const formData = {
-    name: document.querySelector('#create-spec #name').value.trim(),
+    name: document.querySelector('#create-spec #specname').value.trim(),
     category_id: document.querySelector('#create-spec #category').value,
     vendor_id: document.querySelector('#create-spec #vendor').value,
     status: document.querySelector('#status').value,

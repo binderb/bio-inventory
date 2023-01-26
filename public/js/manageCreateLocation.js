@@ -35,7 +35,7 @@ async function initializeEditor () {
 
 async function createLocation () {
   const formData = {
-    name: document.querySelector('#create-location #name').value.trim(),
+    name: document.querySelector('#create-location #locationname').value.trim(),
     description: document.querySelector('#create-location #description').value.trim(),
     type: document.querySelector('#create-location #type').value,
     parent_id: document.querySelector('#create-location #parent').value,

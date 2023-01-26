@@ -106,8 +106,8 @@ async function createItem () {
 }
 
 async function updateSublocations () {
-  const location_id = document.querySelector('#location').value;
-  const sublocationSelect = document.querySelector('#sublocation');
+  const location_id = document.querySelector('#create-item #location').value;
+  const sublocationSelect = document.querySelector('#create-item #sublocation');
   sublocationSelect.innerHTML = '';
   const defaultOption = document.createElement('option');
   defaultOption.value = '';
@@ -129,6 +129,25 @@ async function updateSublocations () {
   }
 }
 
+async function updateUnits () {
+  const unitText = document.querySelector('#create-item #units');
+  const specStringArray = document.querySelector('#create-item #spec').value.trim().split(' ');
+  const specPN = (specStringArray[0] && !isNaN(parseInt(specStringArray[0]))) ? specStringArray[0] : null;
+  if (specPN) {
+    const specResponse = await fetch(`/api/specs/pn/${specPN}`);
+    if (specResponse.ok) {
+      const specData = await specResponse.json();
+      unitText.textContent = specData.units;
+    } else {
+      const err = await specResponse.json();
+      console.log(err);
+    }
+  } else {
+    unitText.textContent = '';
+  }
+}
+
 initializeEditor();
 document.querySelector('#create-item-panel #create').addEventListener('click',createItem);
-document.querySelector('#location').addEventListener('change',updateSublocations);
+document.querySelector('#create-item-panel #location').addEventListener('change',updateSublocations);
+document.querySelector('#create-item-panel #spec').addEventListener('change',updateUnits)

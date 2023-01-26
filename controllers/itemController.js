@@ -57,7 +57,7 @@ export const createOneItem = async (req, res) => {
     req.body.current_amount = parseFloat(req.body.current_amount);
     req.body.boxgrid = (req.body.boxgrid == '') ? null : req.body.boxgrid;
     req.body.sublocation_id = (req.body.sublocation_id == '') ? null : req.body.sublocation_id;
-    if (!req.body.status || req.body.status == '' || !req.body.location_id || req.body.location_id == '' || !req.body.current_amount || isNaN(req.body.current_amount) || (req.body.boxgrid && req.body.boxgrid.length < 2)) {
+    if (!req.body.date_received || req.body.date_received == '' || !req.body.status || req.body.status == '' || !req.body.location_id || req.body.location_id == '' || !req.body.current_amount || isNaN(req.body.current_amount) || (req.body.boxgrid && req.body.boxgrid.length < 2)) {
       res.status(403).json({message: `Please make sure that all required fields have an appropriate value!`});
       return;
     }
@@ -99,7 +99,7 @@ export const updateOneItem = async (req, res) => {
     req.body.current_amount = parseFloat(req.body.current_amount);
     req.body.boxgrid = (req.body.boxgrid == '') ? null : req.body.boxgrid;
     req.body.sublocation_id = (req.body.sublocation_id == '') ? null : req.body.sublocation_id;
-    if (!req.body.current_amount || isNaN(req.body.current_amount) || (req.body.boxgrid && req.body.boxgrid.length < 2)) {
+    if (!req.body.date_received || req.body.date_received == '' || !req.body.current_amount || isNaN(req.body.current_amount) || (req.body.boxgrid && req.body.boxgrid.length < 2)) {
       res.status(403).json({message: `Please make sure that all required fields have an appropriate value!`});
       return;
     }
