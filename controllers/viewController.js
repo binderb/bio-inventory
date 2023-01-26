@@ -68,9 +68,14 @@ export const displayItemDetails = async (req, res) => {
     return;
   }
   const item = itemData.get({plain:true});
+  const qrData = encodeURI(JSON.stringify({
+    id: item.id,
+    spec_id: item.spec_id
+  }));
   const context = `/specs/${item.spec_id}`;
   res.render('itemDetails', {
     item,
+    qrData,
     title: 'Item Details | ' + process.env.WEB_TITLE,
     displayTitle: process.env.WEB_TITLE,
     username: req.session.username,
