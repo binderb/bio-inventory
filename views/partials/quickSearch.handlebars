@@ -1,12 +1,12 @@
-<div id="quick-search-panel" class="col-12 col-md-8 col-xl-9 p-2 py-1" style="display:none;">
-  <div class="container-fluid bg-light border border-color-dark rounded">
+<div id="quick-search-panel" class="col-12 col-md-8 col-xl-9 p-2 py-1 flex-grow-1" style="display:none;">
+  <div class="container-fluid bg-light border border-color-dark rounded h-100 d-flex flex-column">
     <h5 class="fw-bold p-2 pt-4 pb-0 text-primary">Quick Search</h5>
     <div class="d-flex align-items-center p-2 pb-4">
       <i class="fas fa-search text-primary" style="margin-right: 10px;"></i>
       <input id="quick-search" class="form-control" type="text" placeholder="search for a spec" style="flex:1;">
     </div>
-    <div class="rounded border border-color-dark bg-white mb-3">
-      <div id="quick-search-results" class="list-group border-0" style="height:300px; overflow-y:scroll;">
+    <div class="rounded border border-color-dark bg-white mb-3" style="flex:1;">
+      <div id="quick-search-results" class="list-group border-0" style="overflow-y:scroll; height: calc(100vh - 225px);">
       </div>
       <a id="quick-search-li-template" href="" class="list-group-item list-group-item-action quick-search-li" style="display:none;">
         <p id="name" class="m-0"></p>

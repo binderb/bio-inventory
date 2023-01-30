@@ -25,6 +25,9 @@ GENERAL STYLES
 
 body {
   font-family: 'Source Sans Pro', sans-serif;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
 }
 
 .text-dark {
