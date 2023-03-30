@@ -12,7 +12,7 @@ const SequelizeStore = connectSessionSequelize(session.Store);
 import routes from './routes/index.js';
 
 // Define server and port
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 const app = express();
 
 // Enable base middleware
