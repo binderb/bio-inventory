@@ -15,9 +15,6 @@ import routes from './routes/index.js';
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-// Set base URL for routes
-app.use({baseUrl: process.env.BASE_URL}, routes);
-
 // Enable base middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -46,8 +43,8 @@ const hbs = exhbs.create({
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
-// Enable modular routing
-app.use(routes);
+// Enable modular routing, with base url
+app.use(process.env.BASE_URL, routes);
 
 // Provide catch-all routes
 
