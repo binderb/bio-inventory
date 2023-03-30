@@ -15,6 +15,9 @@ import routes from './routes/index.js';
 const PORT = process.env.PORT || 3001;
 const app = express();
 
+// Set base URL for routes
+app.use({baseUrl: process.env.BASE_URL}, routes);
+
 // Enable base middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
