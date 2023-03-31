@@ -13,7 +13,7 @@ export const withAuthAPI = (req, res, next) => {
 // and reidrects to the login page for unauthorized calls.
 export const withAuthView = (req, res, next) => {
   if (!req.session.loggedIn) {
-    res.redirect('/login');
+    res.redirect(req.baseUrl + '/login');
   } else {
     next();
   }
