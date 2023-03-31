@@ -47,7 +47,7 @@ app.set('view engine', 'handlebars');
 app.use(process.env.BASE_URL, routes);
 // This middleware is required to pass the base url to Handlebars
 app.use("*", function(req, res, next){
-  res.locals.absoluteUrl = process.env.BASE_URL
+  res.locals.baseUrl = process.env.BASE_URL
   next();
 });
 

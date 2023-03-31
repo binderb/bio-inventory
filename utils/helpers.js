@@ -26,3 +26,7 @@ export const format_datetime = (dt) => {
   const date = new Date(dt);
   return date.toLocaleString([],{year: 'numeric', month: 'numeric', day: 'numeric'});
 };
+
+export const concat = (string1, string2) => {
+  return string1 + string2;
+}
