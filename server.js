@@ -18,7 +18,8 @@ const app = express();
 // Enable base middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(express.static(path.join(__dirname, process.env.BASE_URL + 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
+console.log(__dirname);
 
 // Enable sessions
 const sess = {
@@ -45,11 +46,7 @@ app.set('view engine', 'handlebars');
 
 // Enable modular routing, with base url
 app.use(process.env.BASE_URL, routes);
-// This middleware is required to pass the base url to Handlebars
-// app.use("*", function(req, res, next){
-//   res.locals.baseUrl = process.env.BASE_URL
-//   next();
-// });
+app.use(process.env.BASE_URL, express.static(path.join(__dirname, 'public')));
 
 // Provide catch-all routes
 
