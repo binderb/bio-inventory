@@ -18,7 +18,7 @@ const app = express();
 // Enable base middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, process.env.BASE_URL + 'public')));
 
 // Enable sessions
 const sess = {
