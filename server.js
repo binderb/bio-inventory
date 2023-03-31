@@ -45,6 +45,11 @@ app.set('view engine', 'handlebars');
 
 // Enable modular routing, with base url
 app.use(process.env.BASE_URL, routes);
+// This middleware is required to pass the base url to Handlebars
+app.use("*", function(req, res, next){
+  res.locals.absoluteUrl = process.env.BASE_URL
+  next();
+});
 
 // Provide catch-all routes
 
