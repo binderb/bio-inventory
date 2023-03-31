@@ -30,3 +30,7 @@ export const format_datetime = (dt) => {
 export const concat = (string1, string2) => {
   return string1 + string2;
 }
+
+export const baseUrl = (urlString) => {
+  return process.env.BASE_URL + urlString;
+}
