@@ -48,7 +48,7 @@ export const createOneLocation = async (req, res) => {
       res.status(403).json({message: `Please make sure that all required fields have an appropriate value!`});
       return;
     }
-    if (req.body.parent_id == '') req.body.parent_id == null;
+    if (req.body.parent_id == '') req.body.parent_id = null;
     const nameCheck = await Location.findOne({
       where: {
         name: {
