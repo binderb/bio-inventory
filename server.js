@@ -47,9 +47,6 @@ app.set('view engine', 'handlebars');
 // Enable modular routing, with base url
 app.use(process.env.BASE_URL, routes);
 app.use(process.env.BASE_URL, express.static(path.join(__dirname, 'public')));
-app.use((req, res, next) => {
-  res.locals.baseUrl = process.env.BASE_URL;
-});
 
 // Provide catch-all routes
 
