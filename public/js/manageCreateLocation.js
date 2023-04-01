@@ -1,6 +1,6 @@
 async function initializeEditor () {
   const typeSelect = document.querySelector('#create-location-panel #type');
-  const typeResponse = await fetch('./api/locations/types');
+  const typeResponse = await fetch(window.baseUrl + 'api/locations/types');
   if (typeResponse.ok) {
     typeSelect.innerHTML = '';
     const typeData = await typeResponse.json();
@@ -16,7 +16,7 @@ async function initializeEditor () {
     }
   }
   const parentSelect = document.querySelector('#create-location-panel #parent');
-  const parentResponse = await fetch('./api/locations/top');
+  const parentResponse = await fetch(window.baseUrl + 'api/locations/top');
   if (parentResponse.ok) {
     parentSelect.innerHTML = '';
     const parentData = await parentResponse.json();
