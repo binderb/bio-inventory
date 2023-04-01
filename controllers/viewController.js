@@ -37,7 +37,7 @@ export const displaySpecDetails = async (req, res) => {
     displayTitle: process.env.WEB_TITLE,
     username: req.session.username,
     access: req.session.access,
-    context: '/'
+    context: process.env.BASE_URL
   });
 }
 
