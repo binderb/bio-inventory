@@ -63,7 +63,7 @@
           {{#if spec.speclogs}}
           <div class="fw-bold d-block">{{format_datetime spec.speclogs.[0].created}}</div>
           <div>{{spec.speclogs.[0].body}}</div>
-          <a class="btn btn-primary btn-sm my-1" href="/specs/{{spec.id}}/logs">View Logs</a>
+          <a class="btn btn-primary btn-sm my-1" href="{{baseUrl "/specs/"}}{{spec.id}}/logs">View Logs</a>
           {{/if}}
         </div>
       </div>
@@ -160,6 +160,6 @@
   window.baseUrl = "{{baseUrlPath}}";
 </script>
 {{#if (isAdmin access)}}
-<script type="text/javascript" src="/js/manageSpecDetails.js"></script>
+<script type="text/javascript" src={{baseUrl "/js/manageSpecDetails.js"}}></script>
 {{/if}}
 <script src={{baseUrl "/js/logout.js"}}></script>

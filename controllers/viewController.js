@@ -79,7 +79,7 @@ export const displayItemDetails = async (req, res) => {
     id: item.id,
     spec_id: item.spec_id
   }));
-  const context = `/specs/${item.spec_id}`;
+  const context = `${process.env.BASE_URL}/specs/${item.spec_id}`;
   res.render('itemDetails', {
     item,
     qrData,
