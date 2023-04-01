@@ -6,6 +6,8 @@ export const displayDashboard = (req, res) => {
     title: 'Dashboard | ' + process.env.WEB_TITLE,
     baseUrlPath: process.env.BASE_URL,
     displayTitle: process.env.WEB_TITLE,
+    brandingPrimary: process.env.BRANDING_PRIMARY,
+    brandingPrimaryHighlight: process.env.BRANDING_PRIMARY_HIGHLIGHT,
     username: req.session.username,
     access: req.session.access,
   });
@@ -14,7 +16,9 @@ export const displayDashboard = (req, res) => {
 export const displayLogin = (req, res) => {
   res.render('login', {
     baseUrlPath: process.env.BASE_URL,
-    title: 'Login | ' + process.env.WEB_TITLE
+    title: 'Login | ' + process.env.WEB_TITLE,
+    brandingPrimary: process.env.BRANDING_PRIMARY,
+    brandingPrimaryHighlight: process.env.BRANDING_PRIMARY_HIGHLIGHT,
   });
 }
 
@@ -25,6 +29,8 @@ export const displaySpecDetails = async (req, res) => {
       baseUrlPath: process.env.BASE_URL,
       title: '404 | ' + process.env.WEB_TITLE,
       displayTitle: process.env.WEB_TITLE,
+      brandingPrimary: process.env.BRANDING_PRIMARY,
+      brandingPrimaryHighlight: process.env.BRANDING_PRIMARY_HIGHLIGHT,
       username: req.session.username
     });
     return;
@@ -35,6 +41,8 @@ export const displaySpecDetails = async (req, res) => {
     baseUrlPath: process.env.BASE_URL,
     title: 'Spec Details | ' + process.env.WEB_TITLE,
     displayTitle: process.env.WEB_TITLE,
+    brandingPrimary: process.env.BRANDING_PRIMARY,
+    brandingPrimaryHighlight: process.env.BRANDING_PRIMARY_HIGHLIGHT,
     username: req.session.username,
     access: req.session.access,
     context: process.env.BASE_URL
@@ -47,6 +55,8 @@ export const displaySpecLogs = async (req, res) => {
     res.render('404', {
       baseUrlPath: process.env.BASE_URL,
       title: '404 | ' + process.env.WEB_TITLE,
+      brandingPrimary: process.env.BRANDING_PRIMARY,
+      brandingPrimaryHighlight: process.env.BRANDING_PRIMARY_HIGHLIGHT,
       displayTitle: process.env.WEB_TITLE,
       username: req.session.username
     });
@@ -57,6 +67,8 @@ export const displaySpecLogs = async (req, res) => {
     spec,
     baseUrlPath: process.env.BASE_URL,
     title: 'Spec Log | ' + process.env.WEB_TITLE,
+    brandingPrimary: process.env.BRANDING_PRIMARY,
+    brandingPrimaryHighlight: process.env.BRANDING_PRIMARY_HIGHLIGHT,
     displayTitle: process.env.WEB_TITLE,
     username: req.session.username,
     access: req.session.access
@@ -69,6 +81,8 @@ export const displayItemDetails = async (req, res) => {
     res.render('404', {
       baseUrlPath: process.env.BASE_URL,
       title: '404 | ' + process.env.WEB_TITLE,
+      brandingPrimary: process.env.BRANDING_PRIMARY,
+      brandingPrimaryHighlight: process.env.BRANDING_PRIMARY_HIGHLIGHT,
       displayTitle: process.env.WEB_TITLE,
       username: req.session.username
     });
@@ -85,6 +99,8 @@ export const displayItemDetails = async (req, res) => {
     qrData,
     baseUrlPath: process.env.BASE_URL,
     title: 'Item Details | ' + process.env.WEB_TITLE,
+    brandingPrimary: process.env.BRANDING_PRIMARY,
+    brandingPrimaryHighlight: process.env.BRANDING_PRIMARY_HIGHLIGHT,
     displayTitle: process.env.WEB_TITLE,
     username: req.session.username,
     access: req.session.access,
@@ -99,6 +115,8 @@ export const displayItemLogs = async (req, res) => {
       baseUrlPath: process.env.BASE_URL,
       title: '404 | ' + process.env.WEB_TITLE,
       displayTitle: process.env.WEB_TITLE,
+      brandingPrimary: process.env.BRANDING_PRIMARY,
+      brandingPrimaryHighlight: process.env.BRANDING_PRIMARY_HIGHLIGHT,
       username: req.session.username
     });
     return;
@@ -108,6 +126,8 @@ export const displayItemLogs = async (req, res) => {
     item,
     baseUrlPath: process.env.BASE_URL,
     title: 'Item Log | ' + process.env.WEB_TITLE,
+    brandingPrimary: process.env.BRANDING_PRIMARY,
+    brandingPrimaryHighlight: process.env.BRANDING_PRIMARY_HIGHLIGHT,
     displayTitle: process.env.WEB_TITLE,
     username: req.session.username,
     access: req.session.access
