@@ -127,7 +127,7 @@
       Stock: {{count spec.items}}
     </h2>
     {{#each spec.items as |item|}}
-    <a href="/specs/{{../spec.id}}/items/{{item.id}}" class="row border {{#unless (isFirst @index)}}border-top-0{{/unless}} border-color-secondary bg-white text-decoration-none p-2 d-flex justify-content-start">
+    <a href="{{baseUrl "specs/"}}{{../spec.id}}/items/{{item.id}}" class="row border {{#unless (isFirst @index)}}border-top-0{{/unless}} border-color-secondary bg-white text-decoration-none p-2 d-flex justify-content-start">
       <div class="d-flex align-items-center ps-0">
         {{!-- Current amount gauge --}}
         <div class="d-flex rounded border border-2 border-dark me-2" style="height:100%;">
