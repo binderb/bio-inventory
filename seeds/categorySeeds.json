@@ -1,0 +1,23 @@
+[
+  {
+    "name" : "consumable"
+  },
+  {
+    "name" : "glassware"
+  },
+  {
+    "name" : "dry reagent"
+  },
+  {
+    "name" : "liquid reagent"
+  },
+  {
+    "name" : "solution"
+  },
+  {
+    "name" : "plasmid"
+  },
+  {
+    "name" : "cell stock"
+  }
+]

@@ -1,6 +1,7 @@
 import sequelize from '../config/connection.js';
-import { User } from '../models/index.js';
+import { User, Category } from '../models/index.js';
 import userSeeds from './userSeeds.json' assert { type: 'json' };
+import categorySeeds from './categorySeeds.json' assert { type: 'json' };
 
 const seedDatabase = async () => {
   await sequelize.sync({force: true});
@@ -8,6 +9,7 @@ const seedDatabase = async () => {
     individualHooks: true,
     returning: true
   });
+  await Category.bulkCreate(categorySeeds);
 }
 
 seedDatabase();
