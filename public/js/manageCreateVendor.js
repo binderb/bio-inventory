@@ -2,7 +2,7 @@ async function createVendor () {
   const formData = {
     name: document.querySelector('#create-vendor #vendorname').value.trim(),
   }
-  const createResponse = await fetch('/api/vendors/', {
+  const createResponse = await fetch('./api/vendors/', {
     method: 'POST',
     headers: {
       'Content-Type' : 'application/json'

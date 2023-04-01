@@ -28,14 +28,14 @@ window.qrCodeSuccessCallback = async (decodedText, decodedResult) => {
   if (Object.keys(decodedObject).length == 2) {
     window.html5QrCode.stop();
     if (Object.keys(decodedObject)[1] == 'spec_id') {
-      window.location.replace(`/specs/${decodedObject.spec_id}/items/${decodedObject.id}`);
+      window.location.replace(`./specs/${decodedObject.spec_id}/items/${decodedObject.id}`);
     } else {
       // Alternate solution, to support legacy implementations of the QR code payload format.
       const pn = decodedObject[Object.keys(decodedObject)[1]];
-      const specResponse = await fetch(`/api/specs/pn/${pn}`);
+      const specResponse = await fetch(`./api/specs/pn/${pn}`);
       if (specResponse.ok) {
         const specData = await specResponse.json();
-        window.location.replace(`/specs/${specData.id}/items/${decodedObject.id}`);
+        window.location.replace(`./specs/${specData.id}/items/${decodedObject.id}`);
       }
     }
   }

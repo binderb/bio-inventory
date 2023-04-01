@@ -1,6 +1,6 @@
 
 async function initializeSearch () {
-  const specsData = await fetch('/api/specs');
+  const specsData = await fetch('./api/specs');
   const specs = await specsData.json();
   window.specs = specs;
 }
