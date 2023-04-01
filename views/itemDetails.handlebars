@@ -67,7 +67,7 @@
           {{#if item.itemlogs}}
           <div class="fw-bold d-block">{{format_datetime item.itemlogs.[0].created}}</div>
           <div>{{item.itemlogs.[0].body}}</div>
-          <a class="btn btn-primary btn-sm my-1" href="/specs/{{item.spec_id}}/items/{{item.id}}/logs">View Logs</a>
+          <a class="btn btn-primary btn-sm my-1" href="{{baseUrl "specs/"}}{{item.spec_id}}/items/{{item.id}}/logs">View Logs</a>
           {{/if}}
         </div>
       </div>
@@ -143,4 +143,4 @@
   window.baseUrl = "{{baseUrlPath}}";
 </script>
 <script src={{baseUrl "/js/logout.js"}}></script>
-<script type="text/javascript" src="/js/manageItemDetails.js"></script>
+<script type="text/javascript" src={{baseUrl "/js/manageItemDetails.js"}}></script>
