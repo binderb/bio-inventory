@@ -105,7 +105,8 @@ export const getOneSpecByPN = async (req, res) => {
 export const createOneSpec = async (req, res) => {
   try {
     // Generate part number.
-    const maxPN = await Spec.max('pn');
+    let maxPN = await Spec.max('pn');
+    if (!maxPN) maxPN = '100000';
     const newPN = parseInt(maxPN) + 1;
     req.body.pn = newPN;
     // Validate input.
