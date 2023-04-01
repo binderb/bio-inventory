@@ -4,6 +4,7 @@ import { findItemByPk } from './itemController.js';
 export const displayDashboard = (req, res) => {
   res.render('dashboard', {
     title: 'Dashboard | ' + process.env.WEB_TITLE,
+    basePath: process.env.BASE_URL,
     displayTitle: process.env.WEB_TITLE,
     username: req.session.username,
     access: req.session.access,
