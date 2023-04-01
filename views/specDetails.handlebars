@@ -156,10 +156,10 @@
     {{/each}}
   </div>
 </div>
-<script src="text/javascript">
-  window.baseUrl = "{{basePath}}";
+<script type="text/javascript">
+  window.baseUrl = "{{baseUrlPath}}";
 </script>
 {{#if (isAdmin access)}}
 <script type="text/javascript" src="/js/manageSpecDetails.js"></script>
 {{/if}}
-<script src="/js/logout.js"></script>
+<script src={{baseUrl "/js/logout.js"}}></script>
