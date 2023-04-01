@@ -4,7 +4,7 @@ const login = async (e) => {
     username: document.querySelector('#username').value.trim(),
     password: document.querySelector('#password').value.trim()
   }
-  const response = await fetch('./api/users/login', {
+  const response = await fetch(window.baseUrl + 'api/users/login', {
     method: 'POST',
     headers: {
       'Content-Type' : 'application/json'
@@ -12,7 +12,7 @@ const login = async (e) => {
     body: JSON.stringify(form_data)
   });
   if (response.ok) {
-    document.location.replace('/');
+    document.location.replace(window.baseUrl);
   } else {
     const response_data = await response.json();
     document.querySelector('#err').textContent = response_data.message;
