@@ -239,6 +239,7 @@ export const getStatuses = async (req, res) => {
 // Get next PN.
 export const getNextPN = async (req, res) => {
   const pn = await Spec.max('pn');
+  if (!pn) pn = '100000';
   const newPN = parseInt(pn) + 1;
   res.status(200).json({pn: newPN});
 }
