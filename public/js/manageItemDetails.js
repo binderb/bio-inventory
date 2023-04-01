@@ -1,10 +1,10 @@
 async function initializeEditor () {
-  const itemData = await fetch('./api/items/'+window.location.href.split('/').pop());
+  const itemData = await fetch(window.baseUrl + 'api/items/'+window.location.href.split('/').pop());
   const item = await itemData.json();
   const lotField = document.querySelector('#lot');
   lotField.value = item.lot;
   const statusSelect = document.querySelector('#status');
-  const statusResponse = await fetch('./api/items/statuses');
+  const statusResponse = await fetch(window.baseUrl + 'api/items/statuses');
   if (statusResponse.ok) {
     statusSelect.innerHTML = '';
     const statusData = await statusResponse.json();
@@ -17,7 +17,7 @@ async function initializeEditor () {
     statusSelect.value = item.status;
   }
   const locationSelect = document.querySelector('#location');
-  const locationResponse = await fetch('./api/locations/top');
+  const locationResponse = await fetch(window.baseUrl + 'api/locations/top');
   if (locationResponse.ok) {
     locationSelect.innerHTML = '';
     const locationData = await locationResponse.json();
@@ -30,7 +30,7 @@ async function initializeEditor () {
     locationSelect.value = item.location_id;
   }
   const sublocationSelect = document.querySelector('#sublocation');
-  const sublocationResponse = await fetch(`./api/locations/${item.location_id}/children`);
+  const sublocationResponse = await fetch(window.baseUrl + `api/locations/${item.location_id}/children`);
   if (sublocationResponse.ok) {
     sublocationSelect.innerHTML = '';
     const defaultOption = document.createElement('option');
@@ -96,12 +96,12 @@ async function deleteItem () {
   if (!confirm(`Are you sure? This item and all activity logs will be permanently deleted from the database.`)) {
     return;
   }
-  const deleteResponse = await fetch('./api/items/'+window.location.href.split('/').pop(), {
+  const deleteResponse = await fetch(window.baseUrl + 'api/items/'+window.location.href.split('/').pop(), {
     method: 'DELETE'
   });
   if (deleteResponse.ok) {
     const deleteData = await deleteResponse.json();
-    document.location.replace(`/specs/${deleteData.spec_id}`);
+    document.location.replace(window.baseUrl + `specs/${deleteData.spec_id}`);
   } else {
     const err = await deleteResponse.json();
     document.querySelector('#delete-err').textContent = err.message;
@@ -126,7 +126,7 @@ async function saveEditItem () {
     current_amount: document.querySelector('#amount').value.trim(),
     date_received: document.querySelector('#received').value.trim()
   }
-  const saveResponse = await fetch('./api/items/'+window.location.href.split('/').pop(), {
+  const saveResponse = await fetch(window.baseUrl + 'api/items/'+window.location.href.split('/').pop(), {
     method: 'PUT',
     headers: {
       'Content-Type' : 'application/json'
@@ -145,7 +145,7 @@ async function saveEditItem () {
 async function updateSublocations () {
   const location_id = document.querySelector('#location').value;
   const sublocationSelect = document.querySelector('#sublocation');
-  const sublocationResponse = await fetch(`./api/locations/${location_id}/children`);
+  const sublocationResponse = await fetch(window.baseUrl + `api/locations/${location_id}/children`);
   if (sublocationResponse.ok) {
     sublocationSelect.innerHTML = '';
     const defaultOption = document.createElement('option');

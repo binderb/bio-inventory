@@ -1,7 +1,7 @@
 async function initializeEditor () {
   const specList = document.querySelector('#create-item-panel #specList');
   specList.innerHTML = '';
-  const specResponse = await fetch('./api/specs');
+  const specResponse = await fetch(window.baseUrl + 'api/specs');
   if (specResponse.ok) {
     const specData = await specResponse.json();
     for (spec of specData) {
@@ -11,7 +11,7 @@ async function initializeEditor () {
     }
   }
   const statusSelect = document.querySelector('#create-item-panel #status');
-  const statusResponse = await fetch('./api/items/statuses');
+  const statusResponse = await fetch(window.baseUrl + 'api/items/statuses');
   if (statusResponse.ok) {
     statusSelect.innerHTML = '';
     const statusData = await statusResponse.json();
@@ -27,7 +27,7 @@ async function initializeEditor () {
     }
   }
   const locationSelect = document.querySelector('#create-item-panel #location');
-  const locationResponse = await fetch('./api/locations/top');
+  const locationResponse = await fetch(window.baseUrl + 'api/locations/top');
   if (locationResponse.ok) {
     locationSelect.innerHTML = '';
     const locationData = await locationResponse.json();
@@ -90,7 +90,7 @@ async function createItem () {
     current_amount: document.querySelector('#create-item #amount').value.trim(),
     date_received: document.querySelector('#create-item #received').value.trim()
   }
-  const createResponse = await fetch('./api/items/', {
+  const createResponse = await fetch(window.baseUrl + 'api/items/', {
     method: 'POST',
     headers: {
       'Content-Type' : 'application/json'
@@ -114,7 +114,7 @@ async function updateSublocations () {
   defaultOption.textContent = '(-none-)';
   sublocationSelect.append(defaultOption);
   if (location_id) {
-    const sublocationResponse = await fetch(`./api/locations/${location_id}/children`);
+    const sublocationResponse = await fetch(window.baseUrl + `api/locations/${location_id}/children`);
     if (sublocationResponse.ok) {
       
       const sublocationData = await sublocationResponse.json();
@@ -134,7 +134,7 @@ async function updateUnits () {
   const specStringArray = document.querySelector('#create-item #spec').value.trim().split(' ');
   const specPN = (specStringArray[0] && !isNaN(parseInt(specStringArray[0]))) ? specStringArray[0] : null;
   if (specPN) {
-    const specResponse = await fetch(`./api/specs/pn/${specPN}`);
+    const specResponse = await fetch(window.baseUrl + `api/specs/pn/${specPN}`);
     if (specResponse.ok) {
       const specData = await specResponse.json();
       unitText.textContent = specData.units;

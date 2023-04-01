@@ -1,5 +1,5 @@
 async function updatePN () {
-  const newPNResponse = await fetch('./api/specs/next-pn');
+  const newPNResponse = await fetch(window.baseUrl + 'api/specs/next-pn');
   if (newPNResponse.ok) {
     const newPN = await newPNResponse.json();
     const pnField = document.querySelector('#pn');
@@ -10,7 +10,7 @@ async function updatePN () {
 async function initializeEditor () {
   updatePN();
   const categorySelect = document.querySelector('#create-spec-panel #category');
-  const categoryResponse = await fetch('./api/categories');
+  const categoryResponse = await fetch(window.baseUrl + 'api/categories');
   if (categoryResponse.ok) {
     const categoryData = await categoryResponse.json();
     const defaultOption = document.createElement('option');
@@ -25,7 +25,7 @@ async function initializeEditor () {
     }
   }
   const vendorSelect = document.querySelector('#create-spec-panel #vendor');
-  const vendorResponse = await fetch('./api/vendors');
+  const vendorResponse = await fetch(window.baseUrl + 'api/vendors');
   if (vendorResponse.ok) {
     const vendorData = await vendorResponse.json();
     const defaultOption = document.createElement('option');
@@ -40,7 +40,7 @@ async function initializeEditor () {
     }
   }
   const statusSelect = document.querySelector('#create-spec-panel #status');
-  const statusResponse = await fetch('./api/specs/statuses');
+  const statusResponse = await fetch(window.baseUrl + 'api/specs/statuses');
   if (statusResponse.ok) {
     const statusData = await statusResponse.json();
     const defaultOption = document.createElement('option');
@@ -55,7 +55,7 @@ async function initializeEditor () {
     }
   }
   const unitSelect = document.querySelector('#create-spec-panel #units');
-  const unitResponse = await fetch('./api/specs/units');
+  const unitResponse = await fetch(window.baseUrl + 'api/specs/units');
   if (unitResponse.ok) {
     const unitData = await unitResponse.json();
     const defaultOption = document.createElement('option');
@@ -82,7 +82,7 @@ async function createSpec () {
     reorder_qty_threshold: (document.querySelector('#create-spec #qty-threshold').value.trim() == '') ? null : document.querySelector('#qty-threshold').value.trim(),
     reorder_amt_threshold: (document.querySelector('#create-spec #amt-threshold').value.trim() == '') ? null : document.querySelector('#amt-threshold').value.trim()
   }
-  const createResponse = await fetch('./api/specs/', {
+  const createResponse = await fetch(window.baseUrl + 'api/specs/', {
     method: 'POST',
     headers: {
       'Content-Type' : 'application/json'

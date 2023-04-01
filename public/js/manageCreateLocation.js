@@ -40,7 +40,7 @@ async function createLocation () {
     type: document.querySelector('#create-location #type').value,
     parent_id: document.querySelector('#create-location #parent').value,
   }
-  const createResponse = await fetch('./api/locations/', {
+  const createResponse = await fetch(window.baseUrl + 'api/locations/', {
     method: 'POST',
     headers: {
       'Content-Type' : 'application/json'

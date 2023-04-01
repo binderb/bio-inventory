@@ -1,10 +1,10 @@
 async function initializeEditor () {
-  const specData = await fetch('./api/specs/'+window.location.href.split('/').pop());
+  const specData = await fetch(window.baseUrl + 'api/specs/'+window.location.href.split('/').pop());
   const spec = await specData.json();
   const nameField = document.querySelector('#name');
   nameField.value = spec.name;
   const categorySelect = document.querySelector('#category');
-  const categoryResponse = await fetch('./api/categories');
+  const categoryResponse = await fetch(window.baseUrl + 'api/categories');
   if (categoryResponse.ok) {
     categorySelect.innerHTML = '';
     const categoryData = await categoryResponse.json();
@@ -17,7 +17,7 @@ async function initializeEditor () {
     categorySelect.value = spec.category_id;
   }
   const vendorSelect = document.querySelector('#vendor');
-  const vendorResponse = await fetch('./api/vendors');
+  const vendorResponse = await fetch(window.baseUrl + 'api/vendors');
   if (vendorResponse.ok) {
     vendorSelect.innerHTML = '';
     const vendorData = await vendorResponse.json();
@@ -30,7 +30,7 @@ async function initializeEditor () {
     vendorSelect.value = spec.vendor_id;
   }
   const statusSelect = document.querySelector('#status');
-  const statusResponse = await fetch('./api/specs/statuses');
+  const statusResponse = await fetch(window.baseUrl + 'api/specs/statuses');
   if (statusResponse.ok) {
     statusSelect.innerHTML = '';
     const statusData = await statusResponse.json();
@@ -45,7 +45,7 @@ async function initializeEditor () {
   const amountField = document.querySelector('#amount');
   amountField.value = spec.amount;
   const unitSelect = document.querySelector('#units');
-  const unitResponse = await fetch('./api/specs/units');
+  const unitResponse = await fetch(window.baseUrl + 'api/specs/units');
   if (unitResponse.ok) {
     unitSelect.innerHTML = '';
     const unitData = await unitResponse.json();
@@ -71,7 +71,7 @@ function editSpec () {
 }
 
 async function deleteSpec () {
-  const specResponse = await fetch('./api/specs/'+window.location.href.split('/').pop());
+  const specResponse = await fetch(window.baseUrl + 'api/specs/'+window.location.href.split('/').pop());
   if (!specResponse.ok) {
     const err = await specResponse.json();
     document.querySelector('#err').textContent = err.message;
@@ -85,7 +85,7 @@ async function deleteSpec () {
   if (!confirm(`Are you sure? This spec and all its activity logs will be permanently deleted from the database.`)) {
     return;
   }
-  const deleteResponse = await fetch('./api/specs/'+window.location.href.split('/').pop(), {
+  const deleteResponse = await fetch(window.baseUrl + 'api/specs/'+window.location.href.split('/').pop(), {
     method: 'DELETE'
   });
   if (deleteResponse.ok) {
@@ -115,7 +115,7 @@ async function saveEditSpec () {
     reorder_qty_threshold: (document.querySelector('#qty-threshold').value.trim() == '') ? null : document.querySelector('#qty-threshold').value.trim(),
     reorder_amt_threshold: (document.querySelector('#amt-threshold').value.trim() == '') ? null : document.querySelector('#amt-threshold').value.trim()
   }
-  const saveResponse = await fetch('./api/specs/'+window.location.href.split('/').pop(), {
+  const saveResponse = await fetch(window.baseUrl + 'api/specs/'+window.location.href.split('/').pop(), {
     method: 'PUT',
     headers: {
       'Content-Type' : 'application/json'
