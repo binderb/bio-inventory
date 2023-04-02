@@ -29,6 +29,11 @@
                 >Password:</label>
                 <input type="password" class="form-control" id="password" />
               </div>
+              {{#if (isDemo deploymentMode)}}
+              <div class="py-1">
+                <b>Demo Deployment:</b> You may login with username 'guest' and password 'guest' to view the app as a regular user. Admin privileges are disabled on this account so you will not be able to edit existing specs.
+              </div>
+              {{/if}}
               <div class="d-flex align-items-center">
                 <button
                   type="submit"

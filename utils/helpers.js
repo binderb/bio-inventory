@@ -2,6 +2,10 @@ export const isAdmin = (access) => {
   return access === 'admin';
 }
 
+export const isDemo = (deploymentMode) => {
+  return deploymentMode === 'demo';
+}
+
 export const count = (array) => {
   return array.length;
 }

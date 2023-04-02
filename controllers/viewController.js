@@ -19,6 +19,7 @@ export const displayLogin = (req, res) => {
     title: 'Login | ' + process.env.WEB_TITLE,
     brandingPrimary: process.env.BRANDING_PRIMARY,
     brandingPrimaryHighlight: process.env.BRANDING_PRIMARY_HIGHLIGHT,
+    deploymentMode: process.env.DEPLOYMENT_MODE
   });
 }
 
