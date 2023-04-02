@@ -18,11 +18,11 @@ This app requires Node.js, as well as a running instance of MySQL. To deploy, pu
 
 ### Customization
 
-To add custom branding to the UI, add a `logo.png` file and `favicon.ico` file to the `/public/images/` directory. You can also change the primary color by providing hexadecimal strings (e.g. `"#0099FF"`) for the `BRANDING_PRIMARY` and `BRANDING_PRIMARY_HIGHLIGHT` values in your `.env` file.
+You must provide a value for `WEB_TITLE` in your `.env` file to properly set the navbar branding and page titles; choose a concise string appropriate for your organization. You must also add a `logo.png` file and `favicon.ico` file to the `/public/images/` directory. Optionally, you may also change the primary UI color by providing hexadecimal strings (e.g. `"#0099FF"`) for the `BRANDING_PRIMARY` and `BRANDING_PRIMARY_HIGHLIGHT` values in your `.env` file.
 
 ### Deployed Example
 
-A working, deployed version of the app can be viewed at [https://portfolio.binderlab.io/bio-inventory](https://portfolio.binderlab.io/bio-inventory).
+A working, deployed version of the app can be viewed at [https://portfolio.binderlab.io/bio-inventory](https://portfolio.binderlab.io/bio-inventory). Follow the instructions on the login screen to access the guest account.
 
 ## Credits
 
