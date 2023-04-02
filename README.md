@@ -8,11 +8,21 @@ Key Features:
 - Flexible, hierarchical location models for easy tracking of items within a workspace.
 - Organization of vendor data.
 
+![App interface includes separate views for searching, viewing specs, and viewing individual inventory items.](./readme/screenshot-bio-inventory.webp)
+
 ## Usage
+
+### Installation
 
 This app requires Node.js, as well as a running instance of MySQL. To deploy, pull down the repo and provide login credentials for an authorized MySQL user in a `.env` file. Then, start the server with `npm run start`.
 
-To add custom branding to the UI, add a `logo.png` file to the `/public/images/` directory.
+### Customization
+
+To add custom branding to the UI, add a `logo.png` file and `favicon.ico` file to the `/public/images/` directory. You can also change the primary color by providing hexadecimal strings (e.g. `"#0099FF"`) for the `BRANDING_PRIMARY` and `BRANDING_PRIMARY_HIGHLIGHT` values in your `.env` file.
+
+### Deployed Example
+
+A working, deployed version of the app can be viewed at [https://portfolio.binderlab.io/bio-inventory](https://portfolio.binderlab.io/bio-inventory).
 
 ## Credits
 
