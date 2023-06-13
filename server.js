@@ -45,8 +45,8 @@ app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 // Enable modular routing, with base url
-app.use(process.env.BASE_URL, routes);
-app.use(process.env.BASE_URL, express.static(path.join(__dirname, 'public')));
+app.use(process.env.BASE_PATH, routes);
+app.use(process.env.BASE_PATH, express.static(path.join(__dirname, 'public')));
 
 // Provide catch-all routes
 
