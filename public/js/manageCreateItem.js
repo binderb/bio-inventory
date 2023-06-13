@@ -114,7 +114,7 @@ async function updateSublocations () {
   defaultOption.textContent = '(-none-)';
   sublocationSelect.append(defaultOption);
   if (location_id) {
-    const sublocationResponse = await fetch(window.baseUrl + `api/locations/${location_id}/children`);
+    const sublocationResponse = await fetch(window.baseUrl + `/api/locations/${location_id}/children`);
     if (sublocationResponse.ok) {
       
       const sublocationData = await sublocationResponse.json();
@@ -134,7 +134,7 @@ async function updateUnits () {
   const specStringArray = document.querySelector('#create-item #spec').value.trim().split(' ');
   const specPN = (specStringArray[0] && !isNaN(parseInt(specStringArray[0]))) ? specStringArray[0] : null;
   if (specPN) {
-    const specResponse = await fetch(window.baseUrl + `api/specs/pn/${specPN}`);
+    const specResponse = await fetch(window.baseUrl + `/api/specs/pn/${specPN}`);
     if (specResponse.ok) {
       const specData = await specResponse.json();
       unitText.textContent = specData.units;

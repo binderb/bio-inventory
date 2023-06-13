@@ -4,7 +4,7 @@ const login = async (e) => {
     username: document.querySelector('#username').value.trim(),
     password: document.querySelector('#password').value.trim()
   }
-  const response = await fetch(window.baseUrl + 'api/users/login', {
+  const response = await fetch(window.baseUrl + '/api/users/login', {
     method: 'POST',
     headers: {
       'Content-Type' : 'application/json'
