@@ -13,6 +13,18 @@ export const displayDashboard = (req, res) => {
   });
 }
 
+export const displayExportControls = (req, res) => {
+  res.render('export', {
+    title: 'Export Database | ' + process.env.WEB_TITLE,
+    baseUrlPath: process.env.BASE_URL,
+    displayTitle: process.env.WEB_TITLE,
+    brandingPrimary: process.env.BRANDING_PRIMARY,
+    brandingPrimaryHighlight: process.env.BRANDING_PRIMARY_HIGHLIGHT,
+    username: req.session.username,
+    access: req.session.access,
+  });
+}
+
 export const displayLogin = (req, res) => {
   res.render('login', {
     baseUrlPath: process.env.BASE_URL,

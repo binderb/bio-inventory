@@ -3,6 +3,7 @@ const router = express.Router();
 import { withAuthView } from '../utils/auth.js';
 import { 
   displayDashboard,
+  displayExportControls,
   displayLogin,
   displaySpecDetails,
   displayItemDetails,
@@ -23,6 +24,9 @@ router.route('/login')
 router.route('/')
 // Dashboard view
 .get(withAuthView, displayDashboard);
+// Export controls (admin only)
+router.route('/export')
+.get(withAuthView, displayExportControls);
 // Spec details
 router.route('/specs/:id')
 .get(withAuthView, displaySpecDetails);

@@ -1,0 +1,33 @@
+{{>navbar}}
+<section class="container-fluid mt-2" style="flex:1;">
+  <div class="row h-100 flex-column flex-md-row">
+    <div class="col-12 p-2 py-1 d-flex flex-column-reverse flex-md-column">
+      {{!-- admin tasks --}}
+      <div class="container-fluid bg-light border border-color-dark rounded mb-2 mt-md-2">
+        <h5 class="fw-bold p-2 pt-4 pb-0 text-primary">Export Database</h5>
+        {{#if (isAdmin access)}}
+        <div class="d-flex flex-column p-4 mb-4 gap-2 border border-color-dark rounded">
+          <div class="fw-bold">Download JSON for Bio-Tracker</div>
+          <div>
+            This option will create a JSON representation of the inventory database designed for migration to Bio-Tracker, the successor to this app. User data will NOT be exported; user profiles should be created within Bio-Tracker. 
+          </div>
+          <div class="d-flex justify-content-end">
+          <button id="biotracker-download" class="btn btn-primary text-center text-md-start"><i class="fa-solid fa-download pe-2"></i> Download</button>
+          </div>
+          {{!-- <a class="btn btn-primary m-1 text-center text-md-start" href={{baseUrl '/export'}}><i class="fa-solid fa-database pe-2"></i> Export Database</a> --}}
+        </div>
+        {{else}}
+        <div class="d-flex flex-column p-2 pb-4">
+          Sorry! You need admin privileges in order to use the database export feature.
+        </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>
+<script type="text/javascript">
+  window.baseUrl = "{{baseUrlPath}}";
+</script>
+<script src={{baseUrl "/js/manageExport.js"}}></script>
+
+<script src={{baseUrl "/js/logout.js"}}></script>
