@@ -1,7 +1,7 @@
 async function initializeEditor () {
   const specList = document.querySelector('#create-item-panel #specList');
   specList.innerHTML = '';
-  const specResponse = await fetch(window.baseUrl + 'api/specs');
+  const specResponse = await fetch(window.baseUrl + '/api/specs');
   if (specResponse.ok) {
     const specData = await specResponse.json();
     for (spec of specData) {
@@ -11,7 +11,7 @@ async function initializeEditor () {
     }
   }
   const statusSelect = document.querySelector('#create-item-panel #status');
-  const statusResponse = await fetch(window.baseUrl + 'api/items/statuses');
+  const statusResponse = await fetch(window.baseUrl + '/api/items/statuses');
   if (statusResponse.ok) {
     statusSelect.innerHTML = '';
     const statusData = await statusResponse.json();
@@ -27,7 +27,7 @@ async function initializeEditor () {
     }
   }
   const locationSelect = document.querySelector('#create-item-panel #location');
-  const locationResponse = await fetch(window.baseUrl + 'api/locations/top');
+  const locationResponse = await fetch(window.baseUrl + '/api/locations/top');
   if (locationResponse.ok) {
     locationSelect.innerHTML = '';
     const locationData = await locationResponse.json();
@@ -90,7 +90,7 @@ async function createItem () {
     current_amount: document.querySelector('#create-item #amount').value.trim(),
     date_received: document.querySelector('#create-item #received').value.trim()
   }
-  const createResponse = await fetch(window.baseUrl + 'api/items/', {
+  const createResponse = await fetch(window.baseUrl + '/api/items/', {
     method: 'POST',
     headers: {
       'Content-Type' : 'application/json'

@@ -1,6 +1,6 @@
 
 async function initializeSearch () {
-  const specsData = await fetch(window.baseUrl + 'api/specs');
+  const specsData = await fetch(window.baseUrl + '/api/specs');
   const specs = await specsData.json();
   window.specs = specs;
 }
@@ -24,7 +24,7 @@ function updateResults (e) {
       template_i.querySelector('#sub').innerHTML = `<small>${spec.vendor.name} | <span style="font-family:monospace;">PN-${spec.pn}</span></small>`;
       template_i.querySelector('#unopened').innerHTML = `<i class="fa-solid fa-box"></i> ${spec.total_unopened}`;
       template_i.querySelector('#opened').innerHTML = `<i class="fa-solid fa-box-open"></i> ${spec.total_opened}`;
-      template_i.setAttribute('href',`./specs/${spec.id}`);
+      template_i.setAttribute('href',`/specs/${spec.id}`);
       list.append(template_i);
     });
   } else {
