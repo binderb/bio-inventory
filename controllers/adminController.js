@@ -25,9 +25,9 @@ export const getBioTrackerJSON = async (req, res) => {
     }
     const json = JSON.stringify(allData);
     const filename = 'inventory-backup.json';
-    fs.writeFile(filename, json, (err, response) => {
+    fs.writeFile(filename, json, function (err, response) {
       res.download(filename);
-      fs.rm(filename);
+      fs.rmSync(filename);
     });
   } catch (err) {
     res.status(500).json({message: `${err.name}: ${err.message}`});
