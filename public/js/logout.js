@@ -7,7 +7,7 @@ const logout = async (e) => {
     }
   });
   if (response.ok) {
-    document.location.replace(window.baseUrl + 'login');
+    document.location.replace(window.baseUrl + '/login');
   } else {
     alert(response.statusText);
   }
