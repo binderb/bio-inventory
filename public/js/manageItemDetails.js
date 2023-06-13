@@ -1,5 +1,5 @@
 async function initializeEditor () {
-  const itemData = await fetch(window.baseUrl + 'api/items/'+window.location.href.split('/').pop());
+  const itemData = await fetch(window.baseUrl + '/api/items/'+window.location.href.split('/').pop());
   const item = await itemData.json();
   const lotField = document.querySelector('#lot');
   lotField.value = item.lot;
